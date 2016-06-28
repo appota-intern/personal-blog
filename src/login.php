@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +6,7 @@
 </head>
 <body>
 	<div class="content">
-		<form action="index.php" method="post" name="index">
+		<form action="../src/hello.php" method="post" name="index">
 			Name: <input type="text" name="name" />
 			<input type="submit" name="submit" value="Login"/>
 		</form>
