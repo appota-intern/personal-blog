@@ -1,18 +1,23 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-        <title></title>
-       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <form method="POST">
-            input text: <input type="text" name="inputtext" value=""/> <br/>
-            <input type="submit" name="form_click" value="Gui"/><br/>
-            <?php
-                if (isset($_POST['form_click'])){
-                    echo 'Xin Chao: ' . $_POST['inputtext'];
-                }
-           ?>
-        </form>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=${encoding}">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="content">
+		<form action="index.php" method="post" name="index">
+			Name: <input type="text" name="name" />
+			<input type="submit" name="submit" value="Login"/>
+		</form>
+		
+		<?php 
+			if(isset($_POST['submit'])){
+				if(isset($_POST['name']) && $_POST['name'] != ""){
+					echo "<p> Hello " .$_POST['name']."</p>";
+				}
+			}
+		?>
+	</div>
+</body>
 </html>
