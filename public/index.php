@@ -1,23 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=${encoding}">
-<title>Insert title here</title>
-</head>
-<body>
-	<div class="content">
-		<form action="index.php" method="post" name="index">
-			Name: <input type="text" name="name" />
-			<input type="submit" name="submit" value="Login"/>
-		</form>
-		
-		<?php 
-			if(isset($_POST['submit'])){
-				if(isset($_POST['name']) && $_POST['name'] != ""){
-					echo "<p> Hello " .$_POST['name']."</p>";
-				}
-			}
-		?>
-	</div>
-</body>
-</html>
+<?php 
+	require_once 'hello.php';
+	require_once 'login.php';
+?>
