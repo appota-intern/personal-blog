@@ -1,4 +1,8 @@
-
-<?php
-require_once '../src/hello.php';
-require_once '../src/login.php';
+<?php 
+	session_start();
+		if($_SESSION['flag'] == true){
+			header('location: ../src/hello.php');
+		}else{
+			header('location: ../src/login.php');
+		}
+	?>
