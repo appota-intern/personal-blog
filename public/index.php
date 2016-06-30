@@ -1,5 +1,5 @@
-
 <?php
-require_once 'hello.php';
-require_once 'login.php';
-?>
+
+require_once '../src/header.php';
+
+require_once '../src/footer.php';
