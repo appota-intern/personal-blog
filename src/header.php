@@ -2,6 +2,10 @@
 <html>
 <head>
     <title>Demo</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" >
+	<script type="text/javascript" src="/bootstrap/js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
     <style>
         .header {
             padding: 30px;
@@ -25,5 +29,5 @@
 <body>
 <div class="header">
     This is header
-    <a href = "index.php?action=login">Login</a>
+    <a href = "public/index.php?action=login">Login</a>
 </div>
