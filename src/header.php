@@ -25,5 +25,5 @@
 <body>
 <div class="header">
     This is header
-    <a href="../src/login.php">Login</a>
+    <a href = "index.php?action=login">Login</a>
 </div>
