@@ -30,8 +30,8 @@
 			
 			
 		public function logout(){
-		
-			setcookie("flag",true, time()-1800);
+			session_unset();
+			setcookie("id",true, time()-1800);
 			header ( 'location: /project-tt/demo5/public/index.php?action=login');
 			return;
 		}
