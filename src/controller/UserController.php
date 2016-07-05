@@ -3,7 +3,7 @@
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
-				header ( 'location: /project-tt/demo5/public/index.php' );
+				header ( 'location: /project-tt/public/index.php' );
 				return;
 			}
 			
@@ -11,16 +11,12 @@
 				$username = "trangnguyen";
 				$password = "12345";
 				if($_POST['username'] == $username and $_POST['userpass'] == $password){
-					//setcookie()
+				
 					setcookie("id", session_id(), time() +1800);
-					//session_start();
-			
-					//setcookie("username",$_POST['username'],time()+1800);
-					//("flag",true,time()+1800);
 					$_SESSION['flag'] = true;
 					$_SESSION['username'] = $_POST['username'];
 			
-					header ( 'location: /project-tt/demo5/public/index.php' );
+					header ( 'location: /project-tt/public/index.php' );
 					return;
 				}
 			
@@ -32,7 +28,7 @@
 		public function logout(){
 			session_unset();
 			setcookie("id",true, time()-1800);
-			header ( 'location: /project-tt/demo5/public/index.php?action=login');
+			header ( 'location: /project-tt/public/index.php?action=login');
 			return;
 		}
 		

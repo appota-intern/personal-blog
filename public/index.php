@@ -19,7 +19,7 @@
 	
 		if (! isset ( $_SESSION['flag'] ) or $_SESSION['flag'] != true) {
 	
-			header ( 'location: /project-tt/demo5/public/index.php?action=login' );
+			header ( 'location: /project-tt/public/index.php?action=login' );
 			return;
 		}
 	
@@ -29,3 +29,4 @@
 	require_once '../src/view/footer.php';
 	
 ?>
+
