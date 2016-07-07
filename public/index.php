@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__.'/../vendor/autoload.php';
+require_once '../src/controller/UserController.php';
 
 $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
 $base_uri = getenv('BASE_URI');
@@ -10,7 +11,8 @@ if ($base_uri_len and substr($uri, 0, $base_uri_len) == $base_uri) {
 	$uri = substr($uri, $base_uri_len);
 }
 
-$user = new Controller\UserController();
+session_start();
+$user = new UserController(); 
 
 switch ($uri) {
 	case '/login':
@@ -20,7 +22,25 @@ switch ($uri) {
 		$user->logout();
 		break;
 	case '/':
+		if(!empty($_COOKIE['id'])){
+			session_id($_COOKIE['id']);
+		}
+		// require_once '../src/view/header.php';
+		// require_once '../src/controller/UserController.php';
+		// $user = new UserControllers();
+
+
+	
+
+		if (! isset ( $_SESSION['flag'] ) or $_SESSION['flag'] != true) {
+
+			header ( 'location: /login' );
+			return;
+		}
+
 		$user->hello();
+
+		require_once '../src/view/footer.php';
 		break;
 	default:
 		die('Page not found');

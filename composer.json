@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-            "": "src"
+            "": "src/Controller"
         },
         "files": ["src/config.php"]
     }

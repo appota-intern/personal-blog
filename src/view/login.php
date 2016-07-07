@@ -1,5 +1,5 @@
 
-	<form class="form-inline" action="index.php?action=login" method="post" >
+	<form class="form-inline" action="/login" method="post" >
 		<div class="form-group">
 			<label class="sr-only" for="exampleInputEmail3">Email address</label>
 			<input type="text" name="username" class="form-control" id="exampleInputEmail3" placeholder="Username">

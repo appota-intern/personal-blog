@@ -1,9 +1,9 @@
 <?php 
-	class UserControllers{
+	class UserController{
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
-				header ( 'location: /project-tt/public/index.php' );
+				header ( 'location: /' );
 				return;
 			}
 			
@@ -13,10 +13,12 @@
 				if($_POST['username'] == $username and $_POST['userpass'] == $password){
 				
 					setcookie("id", session_id(), time() +1800);
+					// echo "123";
+					// return;
 					$_SESSION['flag'] = true;
 					$_SESSION['username'] = $_POST['username'];
 			
-					header ( 'location: /project-tt/public/index.php' );
+					header ( 'location: /' );
 					return;
 				}
 			
@@ -28,7 +30,7 @@
 		public function logout(){
 			session_unset();
 			setcookie("id",true, time()-1800);
-			header ( 'location: /project-tt/public/index.php?action=login');
+			header ( 'location: /login');
 			return;
 		}
 		
