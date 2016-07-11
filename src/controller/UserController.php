@@ -4,7 +4,7 @@ namespace Controller;
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
-				header ( 'location: /project-tt/personal-blog/public/' );
+				header ( 'location: http://localhost/project-tt/personal-blog/public/' );
 				return;
 			}
 			
@@ -19,7 +19,7 @@ namespace Controller;
 					$_SESSION['flag'] = true;
 					$_SESSION['username'] = $_POST['username'];
 			
-					header ( 'location: /project-tt/personal-blog/public/' );
+					header ( 'location: http://localhost/project-tt/personal-blog/public/' );
 					return;
 				}
 			
@@ -31,7 +31,7 @@ namespace Controller;
 		public function logout(){
 			session_unset();
 			setcookie("id",true, time()-1800);
-			header ( 'location: /project-tt/personal-blog/public/login');
+			header ( 'location: http://localhost/project-tt/personal-blog/public/login');
 			return;
 		}
 		
