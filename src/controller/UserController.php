@@ -1,10 +1,11 @@
 <?php 
+
 namespace Controller;
 	class UserController{
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
-				header ( 'location: http://localhost/project-tt/personal-blog/public/' );
+				$this->redirect('/');
 				return;
 			}
 			
@@ -18,8 +19,9 @@ namespace Controller;
 					// return;
 					$_SESSION['flag'] = true;
 					$_SESSION['username'] = $_POST['username'];
-			
-					header ( 'location: http://localhost/project-tt/personal-blog/public/' );
+					
+					$this->redirect('/');
+					//header ( 'location: http://localhost/project-tt/personal-blog/public/' );
 					return;
 				}
 			
@@ -31,11 +33,16 @@ namespace Controller;
 		public function logout(){
 			session_unset();
 			setcookie("id",true, time()-1800);
-			header ( 'location: http://localhost/project-tt/personal-blog/public/login');
+			//header ( 'location: http://localhost/project-tt/personal-blog/public/login');
+			$this->redirect('/login');
 			return;
 		}
 		
 		public function hello(){
 			require_once '../src/view/hello.php';
+		}
+
+		public function redirect($uri){
+			header ( 'location: http://localhost'. getenv('BASE_URI') . $uri);
 		}
 	}
