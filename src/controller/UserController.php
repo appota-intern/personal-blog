@@ -1,9 +1,10 @@
 <?php 
+namespace Controller;
 	class UserController{
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
-				header ( 'location: /' );
+				header ( 'location: /project-tt/personal-blog/public/' );
 				return;
 			}
 			
@@ -18,7 +19,7 @@
 					$_SESSION['flag'] = true;
 					$_SESSION['username'] = $_POST['username'];
 			
-					header ( 'location: /' );
+					header ( 'location: /project-tt/personal-blog/public/' );
 					return;
 				}
 			
@@ -30,7 +31,7 @@
 		public function logout(){
 			session_unset();
 			setcookie("id",true, time()-1800);
-			header ( 'location: /login');
+			header ( 'location: /project-tt/personal-blog/public/login');
 			return;
 		}
 		
