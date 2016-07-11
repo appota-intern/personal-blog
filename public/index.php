@@ -14,13 +14,13 @@ if ($base_uri_len and substr($uri, 0, $base_uri_len) == $base_uri) {
 $user = new Controller\UserController();
 session_start();
 switch ($uri) {
-	case '/project-tt/personal-blog/public/login':
+	case '/login':
 		$user->login();
 		break;
-	case '/project-tt/personal-blog/public/logout':
+	case '/logout':
 		$user->logout();
 		break;
-	case '/project-tt/personal-blog/public/':
+	case '/':
 		$user->hello();
 		break;
 	default:
