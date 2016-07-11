@@ -1,7 +1,12 @@
 <?php 
 
 namespace Controller;
-	class UserController{
+
+	abstract class BaseController{
+		abstract public function redirect($uri);
+	}
+
+	class UserController extends BaseController{
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
@@ -43,6 +48,7 @@ namespace Controller;
 		}
 
 		public function redirect($uri){
-			header ( 'location: http://localhost'. getenv('BASE_URI') . $uri);
+			header ( 'location:' . getenv('BASE_URI') . $uri);
 		}
 	}
+
