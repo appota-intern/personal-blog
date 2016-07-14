@@ -2,11 +2,10 @@
 
 namespace Controller;
 
-	abstract class BaseController{
-		abstract public function redirect($uri);
-	}
 
-	class UserController extends BaseController{
+
+	class UserController extends urlController{
+		
 		
 		public function login(){
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
