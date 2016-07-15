@@ -5,7 +5,6 @@ namespace Controller;
 class UserController extends BaseController {
 
     public function login() {
-//			$this->loadView('header');
         if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
             $this->redirect('/');
             return;
@@ -20,41 +19,29 @@ class UserController extends BaseController {
             if ($id_name && $_POST['userpass'] == $passwords[$id_name]) {
 
                 setcookie("id", session_id(), time() + 1800);
-                // echo "123";
-                // return;
                 $_SESSION['flag'] = true;
                 $_SESSION['username'] = $_POST['username'];
 
                 $this->redirect('/');
-                //header ( 'location: http://localhost/project-tt/personal-blog/public/' );
                 return;
             }
         }
-//				require_once '../src/view/login.php';
         $this->loadView('login');
     }
 
     public function logout() {
-//			$this->loadView('header');
         session_unset();
         setcookie("id", true, time() - 1800);
-        //header ( 'location: http://localhost/project-tt/personal-blog/public/login');
         $this->redirect('/login');
-//			$this->loadView('footer');
         return;
     }
 
     public function hello() {
-//			$this->loadView('header');
         if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
-
-//        echo 'hello ' . $_SESSION['username'].'! ';}
-
             $this->loadView('hello');
         } else {
             $this->redirect('/login');
         }
-//			require_once '../src/view/hello.php';
     }
 
     // public function loadView($view){
