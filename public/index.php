@@ -1,5 +1,5 @@
 <?php
-
+require_once '../src/view/header.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
 $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
@@ -54,7 +54,7 @@ switch ($uri) {
 	// 	$user->hello();
 	// }
 
-	// require_once '../src/view/footer.php';
+	 require_once '../src/view/footer.php';
 
 
 

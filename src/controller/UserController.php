@@ -4,7 +4,7 @@ namespace Controller;
 
 
 
-	class UserController extends urlController{
+	class UserController extends BaseController{
 		
 		
 		public function login(){
@@ -46,8 +46,5 @@ namespace Controller;
 			require_once '../src/view/hello.php';
 		}
 
-		public function redirect($uri){
-			header ( 'location:' . getenv('BASE_URI') . $uri);
-		}
 	}
 
