@@ -1,6 +1,4 @@
-<?php
-require_once '../src/view/header.php';
-?>
+
 <form class="form-inline" action="" method="post" >
     <div class="form-group">
         <label class="sr-only" for="exampleInputEmail3">Email address</label>
@@ -15,6 +13,3 @@ require_once '../src/view/header.php';
 
     <button type="submit" class="btn btn-default">Login</button>
 </form>
-<?php
-require_once '../src/view/footer.php';
-?>
