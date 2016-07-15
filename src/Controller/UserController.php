@@ -16,7 +16,7 @@ class UserController extends BaseController {
 
             $id_name = array_search($_POST['username'], $usernames);
 
-            if ($id_name && $_POST['userpass'] == $passwords[$id_name]) {
+            if ($id_name!==false && $_POST['userpass'] == $passwords[$id_name]) {
 
                 setcookie("id", session_id(), time() + 1800);
                 $_SESSION['flag'] = true;
