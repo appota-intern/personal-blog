@@ -8,6 +8,7 @@ namespace Controller;
 		
 		
 		public function login(){
+			$this->loadView('header');
 			if (isset ( $_SESSION['flag'] ) and $_SESSION['flag'] == true) {
 				$this->redirect('/');
 				return;
@@ -31,20 +32,29 @@ namespace Controller;
 			
 			}
 				require_once '../src/view/login.php';
+				$this->loadView('footer');
 			} 
 			
 			
 		public function logout(){
+			$this->loadView('header');
 			session_unset();
 			setcookie("id",true, time()-1800);
 			//header ( 'location: http://localhost/project-tt/personal-blog/public/login');
 			$this->redirect('/login');
+			$this->loadView('footer');
 			return;
 		}
 		
 		public function hello(){
+			$this->loadView('header');
 			require_once '../src/view/hello.php';
+			$this->loadView('footer');
 		}
+
+		// public function loadView($view){
+		// 	require_once '../src/view/footer.php';
+		// }
 
 	}
 
