@@ -26,5 +26,5 @@
 <body>
 <div class="header">
     This is header
-    <a href = "/login">Login</a>
+    <a href = "login">Login</a>
 </div>
