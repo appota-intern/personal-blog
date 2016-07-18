@@ -4,6 +4,17 @@ namespace Controller;
 
 class UserController extends BaseController {
 
+//    public $name;
+
+
+    public static function user() {
+        if(self::check()){
+            return $_SESSION['username'];
+        }  else {
+            return FALSE;
+        }
+    }
+    
     public function login() {
         if ($this->check()) {
             $this->redirect('/');

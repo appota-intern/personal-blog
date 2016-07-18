@@ -55,7 +55,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <?php
                         if (Controller\UserController::check())
-                            echo '<li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
+                            echo '<li><a>Xin chào '.Controller\UserController::user().'</a></li><li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
                         else
                             echo '<li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>';
                         ?>
