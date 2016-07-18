@@ -5,14 +5,14 @@ namespace Controller;
 class UserController extends BaseController {
 
     public function login() {
-        if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+        if ($this->check()) {
             $this->redirect('/');
             return;
         }
 
         if (!empty($_POST ['username']) && !empty($_POST ['userpass'])) {
-            $usernames = ["trangnguyen", "ngohai"];
-            $passwords = ["12345", "12344321"];
+            $usernames = ["trangnguyen", "ngohai","ducanh"];
+            $passwords = ["12345", "12344321","12345678"];
 
             $id_name = array_search($_POST['username'], $usernames);
 
@@ -32,18 +32,24 @@ class UserController extends BaseController {
     public function logout() {
         session_unset();
         setcookie("id", true, time() - 1800);
-        $this->redirect('/login');
+        $this->redirect('/');
         return;
     }
 
     public function hello() {
-        if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+//        if ($this->check()) {
             $this->loadView('hello');
-        } else {
-            $this->redirect('/login');
-        }
+//        } else {
+//            $this->redirect('/login');
+//        }
     }
 
+    public static function check() {
+        if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+            return TRUE;
+        }
+        return FALSE;
+    }
     // public function loadView($view){
     // 	require_once '../src/view/footer.php';
     // }
