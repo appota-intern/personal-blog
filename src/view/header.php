@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Bootstrap Example</title>
+        <title>appota-intern</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -116,12 +116,12 @@
                     <div class="modal-body" style="padding:40px 50px;">
                         <form role="form" action="login" method="post">
                             <div class="form-group">
-                                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                                <input type="text" class="form-control" id="usrname" name="username" placeholder="Enter email">
+                                <label for="myusername"><span class="glyphicon glyphicon-user"></span> Username</label>
+                                <input type="text" class="form-control" id="myusername" name="myusername" placeholder="Enter Username">
                             </div>
                             <div class="form-group">
-                                <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                                <input type="password" class="form-control" id="psw" name="userpass" placeholder="Enter password">
+                                <label for="mypassword"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                                <input type="password" class="form-control" id="mypassword" name="mypassword" placeholder="Enter password">
                             </div>
                             <div class="checkbox">
                                 <label><input type="checkbox" value="" checked>Remember me</label>

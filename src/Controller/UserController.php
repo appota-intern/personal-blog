@@ -3,41 +3,49 @@
 namespace Controller;
 
 class UserController extends BaseController {
-
-//    public $name;
-
-
     public static function user() {
-        if(self::check()){
+        if (self::check()) {
             return $_SESSION['username'];
-        }  else {
+        } else {
             return FALSE;
         }
     }
-    
     public function login() {
         if ($this->check()) {
             $this->redirect('/');
             return;
         }
+        if (!empty($_POST ['myusername']) && !empty($_POST ['mypassword'])) {
+            $host = "localhost"; // luôn luôn là localhost
+            $username = "root"; // user của mysql
+            $password = "12344321"; // Mysql password
+            $db_name = "data"; // tên database
+            $tbl_name = "myuser"; // tên table
+// kết nối cơ sở dữ liệu
+            $conn = mysqli_connect($host, $username, $password, $db_name);
+            $myusername = $_POST['myusername'];
+            $mypassword = $_POST['mypassword'];
 
-        if (!empty($_POST ['username']) && !empty($_POST ['userpass'])) {
-            $usernames = ["trangnguyen", "ngohai","ducanh"];
-            $passwords = ["12345", "12344321","12345678"];
-
-            $id_name = array_search($_POST['username'], $usernames);
-
-            if ($id_name!==false && $_POST['userpass'] == $passwords[$id_name]) {
-
-                setcookie("id", session_id(), time() + 1800);
-                $_SESSION['flag'] = true;
-                $_SESSION['username'] = $_POST['username'];
-
-                $this->redirect('/');
-                return;
+// Xử lý để tránh MySQL injection
+            $myusername = addslashes($myusername);
+            $mypassword = addslashes($mypassword);
+            
+            
+            $sql = "SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
+            $result = mysqli_query($conn, $sql);
+            $count = mysqli_num_rows($result);
+// nếu tài khoản trùng khớp thì sẽ trả về giá trị 1 cho biến $count
+            if ($count > 0) {
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    $_SESSION['flag'] = true;
+                    $_SESSION['username'] = $row['username'];
+                }
             }
+            else {
+    echo "Sai tên đăng nhập hoặc mật khẩu";
+}
         }
-        $this->loadView('login');
+//        $this->redirect('/');
     }
 
     public function logout() {
@@ -49,7 +57,7 @@ class UserController extends BaseController {
 
     public function hello() {
 //        if ($this->check()) {
-            $this->loadView('hello');
+        $this->loadView('hello');
 //        } else {
 //            $this->redirect('/login');
 //        }
@@ -61,7 +69,8 @@ class UserController extends BaseController {
         }
         return FALSE;
     }
-    // public function loadView($view){
-    // 	require_once '../src/view/footer.php';
-    // }
+
+// public function loadView($view){
+// 	require_once '../src/view/footer.php';
+// }
 }
