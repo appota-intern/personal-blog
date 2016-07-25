@@ -20,7 +20,6 @@ class UserController extends BaseController {
 
                 setcookie("id", session_id(), time() + 1800);
                 $_SESSION['flag'] = true;
-                //$_SESSION['username'] = $_POST['username'];
 
                 $_SESSION['username'] = $username;
                 $this->redirect('/');
