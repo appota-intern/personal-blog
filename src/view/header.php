@@ -5,7 +5,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <style>
+    </head>
+            <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
             .navbar {
                 margin-bottom: 0;
@@ -32,7 +33,6 @@
                 }
             }
         </style>
-    </head>
     <body>
 
         <nav class="navbar navbar-inverse">
@@ -55,7 +55,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <?php
                         if (Controller\UserController::check())
-                            echo '<li><a>Xin chào '.Controller\UserController::user().'</a></li><li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
+                            echo '<li><a>Xin chào ' . Controller\UserController::user() . '</a></li><li><a href="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>';
                         else
                             echo '<li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>';
                         ?>
@@ -101,6 +101,8 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+
+
 
 
         <!-- Modal -->
