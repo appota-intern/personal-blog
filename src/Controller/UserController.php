@@ -3,74 +3,131 @@
 namespace Controller;
 
 class UserController extends BaseController {
-    public static function user() {
-        if (self::check()) {
-            return $_SESSION['username'];
-        } else {
-            return FALSE;
-        }
-    }
+
     public function login() {
-        if ($this->check()) {
+        if ($this->checkLogin()) {
             $this->redirect('/');
             return;
         }
-        if (!empty($_POST ['myusername']) && !empty($_POST ['mypassword'])) {
-            $host = "localhost"; // luôn luôn là localhost
-            $username = "root"; // user của mysql
-            $password = "12344321"; // Mysql password
-            $db_name = "data"; // tên database
-            $tbl_name = "myuser"; // tên table
-// kết nối cơ sở dữ liệu
-            $conn = mysqli_connect($host, $username, $password, $db_name);
-            $myusername = $_POST['myusername'];
-            $mypassword = $_POST['mypassword'];
 
-// Xử lý để tránh MySQL injection
-            $myusername = addslashes($myusername);
-            $mypassword = addslashes($mypassword);
+        if (!empty($_POST ['username']) && !empty($_POST ['userpass'])) {
+            $username = $_POST['username'];
+            $passwords= md5($_POST['userpass']);
+
+            $result = $this->checkData($username, $passwords);
             
-            
-            $sql = "SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
-            $result = mysqli_query($conn, $sql);
-            $count = mysqli_num_rows($result);
-// nếu tài khoản trùng khớp thì sẽ trả về giá trị 1 cho biến $count
-            if ($count > 0) {
-                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    $_SESSION['flag'] = true;
-                    $_SESSION['username'] = $row['username'];
-                }
+            if(!empty($result)){
+
+                setcookie("id", session_id(), time() + 1800);
+                $_SESSION['flag'] = true;
+                //$_SESSION['username'] = $_POST['username'];
+
+                $_SESSION['username'] = $username;
+                $this->redirect('/');
+                return;
             }
-            else {
-    echo "Sai tên đăng nhập hoặc mật khẩu";
-}
         }
-//        $this->redirect('/');
+        $this->loadView('login');
     }
 
     public function logout() {
         session_unset();
         setcookie("id", true, time() - 1800);
-        $this->redirect('/');
+        $this->redirect('/login');
         return;
     }
 
     public function hello() {
-//        if ($this->check()) {
-        $this->loadView('hello');
-//        } else {
-//            $this->redirect('/login');
-//        }
-    }
-
-    public static function check() {
-        if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
-            return TRUE;
+        if ($this->checkLogin()) {
+            $this->loadView('hello');
+        } else {
+            $this->redirect('/login');
         }
-        return FALSE;
     }
 
-// public function loadView($view){
-// 	require_once '../src/view/footer.php';
-// }
+    public function checkLogin(){
+        if(isset($_SESSION['flag']) and $_SESSION['flag'] == true)
+            return true;
+        else
+            return false;
+    }
 }
+
+
+
+// namespace Controller;
+
+// class UserController extends BaseController {
+//     public static function user() {
+//         if (self::check()) {
+//             return $_SESSION['username'];
+//         } else {
+//             return FALSE;
+//         }
+//     }
+//     public function login() {
+//         if ($this->check()) {
+//             $this->redirect('/');
+//             return;
+//         }
+//         if (!empty($_POST ['username']) && !empty($_POST ['userpass'])) {
+//             $host = "localhost"; // luôn luôn là localhost
+//             $username = "root"; // user của mysql
+//             $password = ""; // Mysql password
+//             $db_name = "login"; // tên database
+//             $tbl_name = "user"; // tên table
+// // kết nối cơ sở dữ liệu
+//             $conn = mysqli_connect($host, $username, $password, $db_name);
+//             $myusername = $_POST['username'];
+//             $mypassword = $_POST['userpass'];
+
+// // Xử lý để tránh MySQL injection
+//             $myusername = addslashes($myusername);
+//             $mypassword = addslashes($mypassword);
+            
+            
+//             $sql = "SELECT * FROM $tbl_name WHERE name='$myusername' and pass='$mypassword'";
+//             $result = mysqli_query($conn, $sql);
+//             $count = mysqli_num_rows($result);
+// // nếu tài khoản trùng khớp thì sẽ trả về giá trị 1 cho biến $count
+//             if ($count > 0) {
+//                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+//                     $_SESSION['flag'] = true;
+//                     $_SESSION['username'] = $row['name'];
+//                 }
+//             }
+//             else {
+//     echo "Sai tên đăng nhập hoặc mật khẩu";
+// }
+//         }
+// //        $this->redirect('/');
+//     }
+
+//     public function logout() {
+//         session_unset();
+//         setcookie("id", true, time() - 1800);
+//         $this->redirect('/');
+//         return;
+//     }
+
+//     public function hello() {
+// //        if ($this->check()) {
+//         $this->loadView('hello');
+// //        } else {
+// //            $this->redirect('/login');
+// //        }
+//     }
+
+//     public static function check() {
+//         if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+//             return TRUE;
+//         }
+//         return FALSE;
+//     }
+
+// // public function loadView($view){
+// //  require_once '../src/view/footer.php';
+// // }
+// }
+
+// ?>
