@@ -18,7 +18,7 @@ abstract class BaseController {
 
 
 	public function checkData($username, $passwords){
-		$conn = mysqli_connect('localhost', 'root', '', 'login') or die ('Không thể kết nối tới database');
+		$conn = mysqli_connect('localhost', 'root', '', 'user') or die ('Không thể kết nối tới database');
  
 		// Câu truy vấn
 		$sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" .$username. "' AND `pass` = '" .$passwords. "'";

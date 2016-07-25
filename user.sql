@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2016 at 09:17 AM
+-- Generation Time: Jul 25, 2016 at 09:48 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -28,18 +28,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `id` varchar(5) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `pass` text,
-  `email` varchar(50) NOT NULL,
-  `group_id` int(1) NOT NULL COMMENT '1: admin, 0: member'
+  `name` varchar(255) NOT NULL,
+  `pass` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `group_id` int(1) NOT NULL COMMENT '1: admin, 0: member',
+  `status` tinyint(1) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `pass`, `email`, `group_id`) VALUES
-('1', 'trangnguyen@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'trangnguyen@gmail.com', 1);
+INSERT INTO `user` (`id`, `name`, `pass`, `email`, `group_id`, `status`, `timestamp`) VALUES
+('1', 'trangnguyen@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'trangnguyen@gmail.com', 1, 0, '2016-07-25 07:47:58');
 
 --
 -- Indexes for dumped tables
