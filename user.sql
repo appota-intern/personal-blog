@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2016 at 10:35 AM
+-- Generation Time: Jul 25, 2016 at 10:40 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `user` (
   `id` varchar(5) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `pass` varchar(255) DEFAULT NULL,
+  `pass` char(60) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `group_id` enum('0','1') NOT NULL COMMENT '1: admin, 0: member',
   `status` enum('1','2','3') NOT NULL COMMENT '1: đã tồn tại, 2: chưa tồn tại, 3: bị khóa',
