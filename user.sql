@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2016 at 09:48 AM
+-- Generation Time: Jul 25, 2016 at 10:35 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -31,9 +31,9 @@ CREATE TABLE `user` (
   `name` varchar(255) NOT NULL,
   `pass` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `group_id` int(1) NOT NULL COMMENT '1: admin, 0: member',
-  `status` tinyint(1) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `group_id` enum('0','1') NOT NULL COMMENT '1: admin, 0: member',
+  `status` enum('1','2','3') NOT NULL COMMENT '1: đã tồn tại, 2: chưa tồn tại, 3: bị khóa',
+  `timestamp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `pass`, `email`, `group_id`, `status`, `timestamp`) VALUES
-('1', 'trangnguyen@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'trangnguyen@gmail.com', 1, 0, '2016-07-25 07:47:58');
+('1', 'trangnguyen@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'trangnguyen@gmail.com', '1', '', 2147483647);
 
 --
 -- Indexes for dumped tables
