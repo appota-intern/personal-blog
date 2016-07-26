@@ -3,10 +3,13 @@
 namespace Controller;
 
 class UserController extends BaseController {
+    public function start(){
+        $this->loadView('start');
+    }
 
     public function login() {
         if ($this->checkLogin()) {
-            $this->redirect('/');
+            $this->redirect('/hello');
             return;
         }
 
@@ -16,13 +19,13 @@ class UserController extends BaseController {
 
             $result = $this->checkData($username, $passwords);
             
-            if(!empty($result)){
+            if($result){
 
                 setcookie("id", session_id(), time() + 1800);
                 $_SESSION['flag'] = true;
 
                 $_SESSION['username'] = $username;
-                $this->redirect('/');
+                $this->redirect('/hello');
                 return;
             }
         }
@@ -49,6 +52,31 @@ class UserController extends BaseController {
             return true;
         else
             return false;
+    }
+
+    public function register(){
+
+        
+        if(!empty($_POST ['username']) && !empty($_POST ['password']) && !empty($_POST['email'])){
+            $username = $_POST['username'];
+            $password = md5($_POST['password']);
+            $email    = $_POST['email'];
+            $group_id = $_POST['group_id'];
+
+            
+            $result = $this->addMember($username, $password, $email, $group_id);
+            if($result){
+                $this->redirect("/home");
+            }
+            else{
+                $this->redirect("/register");
+            }
+        }
+        $this->loadView('register');
+    }
+
+    public function home(){
+        $this->loadView('home');
     }
 }
 

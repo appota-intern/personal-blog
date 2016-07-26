@@ -31,12 +31,28 @@ abstract class BaseController {
 		    die ('Câu truy vấn bị sai');
 		}
 		 
-		return $row = mysqli_fetch_assoc($result);
+		return $result;
+		//return $row = mysqli_fetch_assoc($result);
 		 
 		 
 		// Sau khi thực thi xong thì ngắt kết nối database
 		mysqli_close($conn);
 
+	}
+
+	public function addMember($username, $password, $email, $group_id){
+		$conn = mysqli_connect('localhost', 'root', '', 'user') or die ('Không thể kết nối tới database');
+
+		$sql = "INSERT INTO user (`name`, `pass`, `email`, `group_id`, `timestamp`) VALUES ('" .$username. "', '" .$password. "', '" .$email. "', '" .$group_id. "', '".time()."')";
+		if (!$sql){
+		    die ('Câu truy vấn bị sai');
+		}
+
+		$result = mysqli_query($conn, $sql);
+
+		
+		return $result;
+		mysqli_close($conn);
 	}
 }
 
