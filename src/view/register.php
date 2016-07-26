@@ -9,7 +9,7 @@
       <!-- E-mail -->
       <label for="inputEmail" class="sr-only">Username</label>
       <div class="controls">
-        <input type="" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+        <input type="" name="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <p class="help-block">Please provide your username</p>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <!-- E-mail -->
       <label for="inputEmail" class="sr-only">Password</label>
       <div class="controls">
-        <input type="password" name="password" id="inputEmail" class="form-control" placeholder="Password" required autofocus>
+        <input type="password" name="pass" id="inputEmail" class="form-control" placeholder="Password" required autofocus>
         <p class="help-block">Please provide your password</p>
       </div>
     </div>
@@ -33,9 +33,9 @@
     </div>
 
   <div class="control-group">
-    <label class="control-label" for="email">Public_id</label>
+    <label class="control-label" for="email">Group_id</label>
     <div class="controls">
-      <select class="form-control" id="sel1" name="public_id">
+      <select class="form-control" id="sel1" name="group_id">
         <option>User</option>
         <option>Admin</option>
       </select>

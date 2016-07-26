@@ -1,6 +1,6 @@
 <?php
-
 namespace Controller;
+use model;
 
 class UserController extends BaseController {
     public function start(){
@@ -17,7 +17,9 @@ class UserController extends BaseController {
             $username = $_POST['username'];
             $passwords= md5($_POST['userpass']);
 
-            $result = $this->checkData($username, $passwords);
+            $usermodel = new model\UserModel();
+
+            $result = $usermodel->checkData($username, $passwords);
             
             if($result){
 
@@ -57,14 +59,28 @@ class UserController extends BaseController {
     public function register(){
 
         
-        if(!empty($_POST ['username']) && !empty($_POST ['password']) && !empty($_POST['email'])){
-            $username = $_POST['username'];
-            $password = md5($_POST['password']);
+        if(!empty($_POST ['name']) && !empty($_POST ['pass']) && !empty($_POST['email'])){
+            $name = $_POST['name'];
+            $pass = md5($_POST['pass']);
             $email    = $_POST['email'];
             $group_id = $_POST['group_id'];
 
-            
-            $result = $this->addMember($username, $password, $email, $group_id);
+            $usermodel = new model\UserModel();
+            //kiểm tra xem email nhập có bị trùng ko?
+            if($usermodel->checkDLN($email)){
+                echo "email này đã có người dùng, nhập lại email khác";
+                exit();
+            }
+
+            //kiểm tra tên đăng nhập đã có người dùng hay chưa?
+            if($usermodel->checkDLN($name)){
+
+                echo "tên này đã có người dùng, nhập lại tên khác";
+                exit();
+            }
+
+
+            $result = $usermodel->addMember($name, $pass, $email, $group_id);
             if($result){
                 $this->redirect("/home");
             }
