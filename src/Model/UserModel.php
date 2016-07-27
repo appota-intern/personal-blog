@@ -8,7 +8,17 @@ namespace Model;
 			$sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" .$name. "' AND `pass` = '" .$pass. "'";
 			$row = $this->query($sql, "select");
 			return $row;
+
+			if(!empty($this->checkDLN("name", $name))){
+
+				$result = $this->checkPass($pass);
+				if(password_verify($passwords, $result['pass'])){
+					return true;
+				}
+				return false;
+			}
 		}
+		
 
 		public function addMember($name, $pass, $email, $group_id){
 			
@@ -23,6 +33,12 @@ namespace Model;
 		public function checkDLN($type, $value){
 		
 			$sql = "SELECT `".$type."` FROM `user` WHERE `".$type."` = '" .$value. "'";
+			$row = $this->query($sql, "select");
+			return $row;
+		}
+
+		public function checkPass($name){
+			$sql = "SELECT `pass` FROM `user` WHERE `name` = '" .$name. "'";
 			$row = $this->query($sql, "select");
 			return $row;
 		}

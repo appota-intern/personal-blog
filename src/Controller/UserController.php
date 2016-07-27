@@ -17,14 +17,18 @@ class UserController extends BaseController {
         }
 
         if (!empty($_POST ['username']) && !empty($_POST ['userpass'])) {
-            $username = $_POST['username'];
-            $passwords= md5($_POST['userpass']);
+            $username  = $_POST['username'];
+            //$passwords= md5($_POST['userpass']);
+            $passwords = $_POST['userpass'];
+            $passwords_hash = password_hash($_POST['userpass'], PASSWORD_DEFAULT);
 
             $usermodel = new model\UserModel();
 
+
+
             $result = $usermodel->checkData($username, $passwords);
             
-            if(!empty($result)){
+            if(!$result){
 
                 setcookie("id", session_id(), time() + 1800);
                 $_SESSION['flag'] = true;
@@ -65,7 +69,8 @@ class UserController extends BaseController {
 
         if(!empty($_POST ['name']) && !empty($_POST ['pass']) && !empty($_POST['email'])){
             $name     = $_POST['name'];
-            $pass     = md5($_POST['pass']);
+            //$pass     = md5($_POST['pass']);
+            $pass     = password_hash($_POST['pass'], PASSWORD_DEFAULT);
             $email    = $_POST['email'];
             $group_id = $_POST['group_id'];
 
