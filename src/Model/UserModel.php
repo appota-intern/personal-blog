@@ -5,18 +5,13 @@ namespace Model;
 
 		public function checkData($name, $pass){
 	
-			$sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" .$name. "' AND `pass` = '" .$pass. "'";
+			$sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" .$name. "'";
 			$row = $this->query($sql, "select");
-			return $row;
-
-			if(!empty($this->checkDLN("name", $name))){
-
-				$result = $this->checkPass($pass);
-				if(password_verify($passwords, $result['pass'])){
-					return true;
-				}
-				return false;
+			//$result = $this->checkPass($pass);
+			if(password_verify($pass, $result['pass'])){
+				return true;
 			}
+			return false;
 		}
 		
 
@@ -36,11 +31,6 @@ namespace Model;
 			$row = $this->query($sql, "select");
 			return $row;
 		}
-
-		public function checkPass($name){
-			$sql = "SELECT `pass` FROM `user` WHERE `name` = '" .$name. "'";
-			$row = $this->query($sql, "select");
-			return $row;
-		}
+			
 
 }
