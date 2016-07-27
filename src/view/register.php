@@ -11,6 +11,7 @@
       <div class="controls">
         <input type="" name="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <p class="help-block">Please provide your username</p>
+        <p style="color: red;"><?php  echo $this->wan2; ?></p>
       </div>
     </div>
  
@@ -29,6 +30,7 @@
       <div class="controls">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <p class="help-block">Please provide your E-mail</p>
+        <p style="color: red;"><?php echo $this->wan1 ?></p>
       </div>
     </div>
 
