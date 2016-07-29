@@ -9,23 +9,29 @@ require_once "../src/config.php";
 
 
 		public function query($sql, $type){
-			//$mysqli = mysqli_connect($this->hostname, $this->userhost, $this->password, $this->dbname) or die ('Không thể kết nối tới database');
-			$mysqli = mysqli_connect(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME')) or die ('Không thể kết nối tới database');
+			//$mysqli = new mysqli($this->hostname, $this->userhost, $this->password, $this->dbname);
+			$mysqli = mysqli_connect(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
+			//$mysqli = new mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
 			
+			if ($mysqli->connect_errno) {
+			    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+			}
+
 			$res = mysqli_query($mysqli, $sql);
-			if(!$res){
-				die("Câu truy vấn sai");
+			if (!$res) {
+			    echo "Failed to run query: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 
 			if($type == "insert"){
 				$row  = $res;
 			}
 			if($type == "select"){
-				$row = mysqli_fetch_assoc($res);
+				$row = $res->fetch_assoc();
 			}
 			return $row;
 
-			//mysqli_close($mysqli);
+			$mysqli->close();
+
 		}
 	}
 ?>
