@@ -10,8 +10,8 @@ require_once "../src/config.php";
 
 		public function query($sql, $type){
 			//$mysqli = new mysqli($this->hostname, $this->userhost, $this->password, $this->dbname);
-			$mysqli = mysqli_connect(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
-			//$mysqli = new mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
+			//$mysqli = mysqli_connect(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
+			$mysqli = new \mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
 			
 			if ($mysqli->connect_errno) {
 			    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
