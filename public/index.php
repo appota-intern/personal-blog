@@ -12,64 +12,36 @@ if ($base_uri_len and substr($uri, 0, $base_uri_len) == $base_uri) {
 	$uri = substr($uri, $base_uri_len);
 }
 
- //echo $uri . "<br>";
-$user = new Controller\UserController();
+$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $routes) {
+	$routes->addRoute(['GET', 'POST'], '/login', 'Controller\\UserController->login');
+	$routes->addRoute('GET', '/home', 'Controller\\UserController->home');
+	$routes->addRoute('GET', '/hello', 'Controller\\UserController->hello');
+	$routes->addRoute('POST', '/logout', 'Controller\\UserController->logout');
+	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\UserController->register');
+});
 
-session_start();
-switch ($uri) {
-	case '/':
-		# code...
-		$user->start();
-		break;
-	case '/login':
-		$user->login();
-		break;
-	case '/logout':
-		$user->logout();
-		break;
-	case '/home':
-		$user->home();
-		break;
-	case '/hello':
-		$user->hello();
-		break;
-	case '/register':
-		$user->register();
-		break;
-	default:
+$routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $uri);
+switch ($routeInfo[0]) {
+    case FastRoute\Dispatcher::NOT_FOUND:
+    	die('404 Not Found');
+        break;
+    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+        $allowedMethods = $routeInfo[1];
+        die('405 Method Not Allowed');
+        break;
+    case FastRoute\Dispatcher::FOUND:
+        $handler = $routeInfo[1];
+        $vars    = $routeInfo[2];
 
-		die('Page not found');
-		
-		break;
+        $handler = explode('->', $handler);
+        if (count($handler) != 2) {
+        	die('404 Not Found');
+        }
+
+        $controller = new $handler[0];
+        $method = $handler[1];
+
+        call_user_func_array([$controller, $method], $vars);
+
+        break;
 }
-	// if(!empty($_COOKIE['id'])){
-	// session_id($_COOKIE['id']);
-	// }
-	// session_start();
-	// require_once '../src/view/header.php';
-	// require_once '../src/controller/UserController.php';
-	// $user = new UserControllers;
-
-
-	// if (isset ( $_GET ['action'] ) and $_GET ['action'] == 'logout'){
-	// 	$user->logout();
-	// }
-	// if (isset ( $_GET ['action'] ) && $_GET ['action'] == 'login') {
-	// 	$user->login();
-	// }
-
-	// else {
-
-	// 	if (! isset ( $_SESSION['flag'] ) or $_SESSION['flag'] != true) {
-
-	// 		header ( 'location: /project-tt/public/index.php?action=login' );
-	// 		return;
-	// 	}
-
-	// 	$user->hello();
-	// }
-
-	 
-
-
-
