@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+chdir(__DIR__.'/..');
+
 $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
 
 $base_uri = getenv('BASE_URI');
@@ -14,7 +16,7 @@ if ($base_uri_len and substr($uri, 0, $base_uri_len) == $base_uri) {
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $routes) {
 	$routes->addRoute(['GET', 'POST'], '/login', 'Controller\\UserController->login');
-	$routes->addRoute('GET', '/home', 'Controller\\UserController->home');
+	$routes->addRoute('GET', '/', 'Controller\\HomeController->index');
 	$routes->addRoute('GET', '/hello', 'Controller\\UserController->hello');
 	$routes->addRoute('POST', '/logout', 'Controller\\UserController->logout'); // Sao phai de method la POST
 	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\UserController->register');
