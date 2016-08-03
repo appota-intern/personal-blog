@@ -1,16 +1,20 @@
 <?php
 namespace Controller;
 use Model;
+use Entity;
+require_once "../src/config.php";
 
 class UserController extends BaseController {
     public $wan1 = "";
     public $wan2 = "";
 
     public function start(){
+        // session_start();
         $this->loadView('start');
     }
 
     public function login() {
+        session_start(); 
         if ($this->checkLogin()) {
             $this->redirect('/hello');
             return;
@@ -21,14 +25,14 @@ class UserController extends BaseController {
             //$passwords= md5($_POST['userpass']);
             $passwords = $_POST['userpass'];
             $passwords_hash = password_hash($_POST['userpass'], PASSWORD_DEFAULT);
-
             $usermodel = new model\UserModel();
 
 
 
             $result = $usermodel->checkData($username, $passwords);
+
             
-            if(!$result){
+            if($result){
 
                 setcookie("id", session_id(), time() + 1800);
                 $_SESSION['flag'] = true;
@@ -42,6 +46,7 @@ class UserController extends BaseController {
     }
 
     public function logout() {
+        session_start();
         session_unset();
         setcookie("id", true, time() - 1800);
         $this->redirect('/login');
@@ -49,6 +54,7 @@ class UserController extends BaseController {
     }
 
     public function hello() {
+        session_start();
         if ($this->checkLogin()) {
             $this->loadView('hello');
         } else {
@@ -97,7 +103,9 @@ class UserController extends BaseController {
 
 
             $row = $usermodel->addMember($name, $pass, $email, $group_id);
-            //echo count($row);
+            // $user = new entity\User($name, $pass, $email, $group_id);
+            // $row = $usermodel->addMember($user);
+
             if($row){
                  $this->redirect("/home");
             }

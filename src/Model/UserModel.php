@@ -10,8 +10,7 @@ class UserModel extends BaseModel {
 
         $sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" . $name . "'";
         $row = $this->query($sql, "select");
-        //$result = $this->checkPass($pass);
-        if (password_verify($pass, $result['pass'])) {
+        if (password_verify($pass, $row['pass'])) {
             return true;
         }
         return false;
@@ -19,10 +18,11 @@ class UserModel extends BaseModel {
 
     public function addMember($name, $pass, $email, $group_id) {
 
-        $sql = "INSERT INTO user (`name`, `pass`, `email`, `group_id`,`timestamp`) VALUES ('" . $name . "', '" . $pass . "', '" . $email . "', '" . $group_id . "', '" . time() . "')";
-        // var_dump($sql);
-        // die();
-        $row = $this->query($sql, "insert");
+        //$sql = "INSERT INTO user (`name`, `pass`, `email`, `group_id`,`time`) VALUES ('" . $name . "', '" . $pass . "', '" . $email . "', '" . $group_id . "', '" . time() . "')";
+        $stmt = $this->conn->prepare("INSERT INTO user(name, pass, email, group_id, time) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssi", $name, $pass, $email, $group_id, time());
+        $row = $stmt->excute();
+        //$row = $this->query($stmt, "insert");
         return $row;
     }
 

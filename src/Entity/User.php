@@ -1,5 +1,5 @@
 <?php
-
+namespace Entity;
 class User {
 
     private $id;
@@ -19,6 +19,14 @@ class User {
         $this->status = $status;
         $this->timestamp = $timestamp;
     }
+
+    // public function __construct($id, $name, $pass, $email, $group_id){
+    //     $this->id = $id;
+    //     $this->name = $name;
+    //     $this->pass = $pass;
+    //     $this->email = $email;
+    //     $this->group_id = $group_id;
+    // }
 
     public function getId() {
         return $this->id;

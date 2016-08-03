@@ -1,7 +1,8 @@
 <?php
  echo '<h3>Xin chào</h3> ' . $_SESSION['username'] . '! ';
 ?>
-<a href="logout">Logout <span class="badge">logout</span></a><br>
+<!--<a href="logout">Logout <span class="badge">logout</span></a><br>-->
+<form action="logout" method="post"><input class="btn btn-primary" type="submit" value="Log out"></form><br />
  
 
  <div class="container-fluid text-center bg-grey">

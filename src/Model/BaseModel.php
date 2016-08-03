@@ -7,31 +7,42 @@ require_once "../src/config.php";
 		// private $password = "";
 		// private $dbname   = "user";
 
+		protected $conn;
+		private $close;
 
-		public function query($sql, $type){
+		public function __construct(){
+			$mysqli = new \mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
+			$this->conn = $mysqli;
+		}
+
+
+		public function query($stmt, $type){
 			//$mysqli = new mysqli($this->hostname, $this->userhost, $this->password, $this->dbname);
 			//$mysqli = mysqli_connect(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
-			$mysqli = new \mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
+			// $mysqli = new \mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
 			
-			if ($mysqli->connect_errno) {
+			if ($this->conn->connect_errno) {
 			    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 			}
 
-			$res = mysqli_query($mysqli, $sql);
-			if (!$res) {
-			    echo "Failed to run query: (" . $mysqli->errno . ") " . $mysqli->error;
-			}
+			// $res = mysqli_query($this->conn, $sql);
+			// if (!$res) {
+			//     echo "Failed to run query: (" . $mysqli->errno . ") " . $this->conn->error;
+			// }
+			//$res = $stmt->excute();
 
-			if($type == "insert"){
-				$row  = $res;
-			}
-			if($type == "select"){
-				$row = $res->fetch_assoc();
-			}
-			return $row;
+			// if($type == "insert"){
+			// 	$row  = $res;
+			// }
+			// if($type == "select"){
+			// 	$row = $res->fetch_assoc();
+			// }
+			//return $row;
+		}
 
-			$mysqli->close();
-
+		public function  __destruct(){
+			//$mysqli->close();
+			$this->close = $this->conn->close();
 		}
 	}
 ?>
