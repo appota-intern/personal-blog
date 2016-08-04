@@ -1,6 +1,6 @@
 <?php
 namespace Model;
-require_once "../src/config.php";
+require_once ("\..\config.php");
 	class BaseModel{
 		// private $hostname = "localhost";
 		// private $userhost = "root";
@@ -25,19 +25,19 @@ require_once "../src/config.php";
 			    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 			}
 
-			// $res = mysqli_query($this->conn, $sql);
-			// if (!$res) {
-			//     echo "Failed to run query: (" . $mysqli->errno . ") " . $this->conn->error;
-			// }
-			//$res = $stmt->excute();
+			$res = mysqli_query($this->conn, $sql);
+			if (!$res) {
+			    echo "Failed to run query: (" . $mysqli->errno . ") " . $this->conn->error;
+			}
+			$res = $stmt->excute();
 
-			// if($type == "insert"){
-			// 	$row  = $res;
-			// }
-			// if($type == "select"){
-			// 	$row = $res->fetch_assoc();
-			// }
-			//return $row;
+			if($type == "insert"){
+				$row  = $res;
+			}
+			if($type == "select"){
+				$row = $res->fetch_assoc();
+			}
+			return $row;
 		}
 
 		public function  __destruct(){

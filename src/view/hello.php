@@ -1,3 +1,4 @@
+<?php $this->load('header', ['title' => $title]) ?>
 <?php
  echo '<h3>Xin chào</h3> ' . $_SESSION['username'] . '! ';
 ?>
@@ -39,3 +40,4 @@
     </div>
 </div>
 
+<?php $this->load('footer'); ?>

@@ -1,3 +1,4 @@
+<?php $this->load('header', ['title' => $title]) ?>
 <div class="container">
 <form class="form-horizontal" action='' method="POST">
   <fieldset>
@@ -11,7 +12,7 @@
       <div class="controls">
         <input type="" name="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <p class="help-block">Please provide your username</p>
-        <p style="color: red;"><?php  echo $this->wan2; ?></p>
+       <!-- <p style="color: red;"><?php  echo $this->wan2; ?></p> -->
       </div>
     </div>
  
@@ -30,7 +31,7 @@
       <div class="controls">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <p class="help-block">Please provide your E-mail</p>
-        <p style="color: red;"><?php echo $this->wan1 ?></p>
+       <!-- <p style="color: red;"><?php echo $this->wan1 ?></p> -->
       </div>
     </div>
 
@@ -55,3 +56,4 @@
   </fieldset>
 </form>
 <div>
+  <?php $this->load('footer'); ?>
