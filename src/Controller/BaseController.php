@@ -13,16 +13,7 @@ abstract class BaseController {
     }
 
     // public function loadView($view) {
-<<<<<<< HEAD
     //  $this->title = $view;
-=======
-    // 	$this->title = $view;
->>>>>>> 39f02db7ef892b95ac935f1ceaad3f3b69f7dbda
-    //     require_once '../src/view/header.php';
-    //     require_once '../src/view/' . $view . '.php';
-    //     require_once '../src/view/footer.php';
-
-    // }
 
 }
 
