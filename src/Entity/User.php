@@ -10,14 +10,14 @@ class User {
     private $status;
     private $timestamp;
 
-    public function __construct($id, $name, $pass, $email, $group_id, $status, $timestamp) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->pass = $pass;
+    public function __construct($email) {
+        //$this->id = $id;
+        //$this->name = $name;
+        //$this->pass = $pass;
         $this->email = $email;
-        $this->group_id = $group_id;
-        $this->status = $status;
-        $this->timestamp = $timestamp;
+        //$this->group_id = $group_id;
+        //$this->status = $status;
+        //$this->timestamp = $timestamp;
     }
 
     // public function __construct($id, $name, $pass, $email, $group_id){
@@ -72,7 +72,7 @@ class User {
         $this->email = $email;
     }
 
-    public function group_id($group_id) {
+    public function setGroup_id($group_id) {
         $this->group_id = $group_id;
     }
 

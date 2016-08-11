@@ -13,7 +13,7 @@
 
     <button type="submit" class="btn btn-default">Login</button>
 </form> -->
-
+<?php $this->load('header', ['title' => $title]) ?>
 <div class="container">
 
       <form class="form-signin" action="" method="post">
@@ -31,3 +31,4 @@
       </form>
 
     </div> <!-- /container -->
+<?php $this->load('footer'); ?>
