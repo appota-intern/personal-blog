@@ -6,6 +6,7 @@ use Entity;
 class UserModel extends BaseModel {
 
     public function checkData($username, $password) {
+<<<<<<< HEAD
 
         // $sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" . $name . "'";
         // $row = $this->query($sql, "select");
@@ -25,6 +26,23 @@ class UserModel extends BaseModel {
 
 
         $stmt->bind_result($name, $pass, $email); 
+=======
+
+        // $sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" . $name . "'";
+        // $row = $this->query($sql, "select");
+        // if (password_verify($pass, $row['pass'])) {
+        //     return true;
+        // }
+        // return false;
+
+        $sql = "SELECT name, pass, email FROM user WHERE name = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+
+
+        $stmt->bind_result($name, $pass, $email);
+>>>>>>> 39f02db7ef892b95ac935f1ceaad3f3b69f7dbda
         $stmt->fetch();
         if (password_verify($password, $pass)) {
             return true;
@@ -35,6 +53,7 @@ class UserModel extends BaseModel {
     public function addMember(\Entity\User $user) {
 
         //$sql = "INSERT INTO user (`name`, `pass`, `email`, `group_id`,`time`) VALUES ('" . $name . "', '" . $pass . "', '" . $email . "', '" . $group_id . "', '" . time() . "')";
+<<<<<<< HEAD
         $stmt = $this->conn->prepare("INSERT INTO user (name, pass, email, group_id, time) VALUES (?, ?, ?, ?, ?)");
         $t = time();
         //$user = new \Entity\User($email);
@@ -62,6 +81,14 @@ class UserModel extends BaseModel {
 
         //$row = $this->query($stmt, "insert");
         return false;
+=======
+        $stmt = $this->conn->prepare("INSERT INTO user(name, pass, email, group_id, time) VALUES (?, ?, ?, ?, ?)");
+        $t = time();
+        $stmt->bind_param("ssssi", $name, $pass, $email, $group_id, $t);
+        $result = $stmt->execute();
+        //$row = $this->query($stmt, "insert");
+        return $result;
+>>>>>>> 39f02db7ef892b95ac935f1ceaad3f3b69f7dbda
     }
 
     public function checkDLN($type, $value) {

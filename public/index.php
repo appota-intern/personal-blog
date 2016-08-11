@@ -15,11 +15,19 @@ if ($base_uri_len and substr($uri, 0, $base_uri_len) == $base_uri) {
 }
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $routes) {
+<<<<<<< HEAD
 	$routes->addRoute(['GET', 'POST'], '/login', 'Controller\\UserController->login');
 	$routes->addRoute('GET', '/', 'Controller\\HomeController->index');
 	$routes->addRoute('GET', '/hello', 'Controller\\UserController->hello');
 	$routes->addRoute('POST', '/logout', 'Controller\\UserController->logout');
 	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\UserController->register');
+=======
+	$routes->addRoute(['GET', 'POST'], '/login', 'Controller\\LoginController->login');
+	$routes->addRoute('GET', '/', 'Controller\\HomeController->index');
+	$routes->addRoute('GET', '/hello', 'Controller\\HelloController->hello');
+	$routes->addRoute('POST', '/logout', 'Controller\\LogoutController->logout'); // Sao phai de method la POST
+	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\RegisterController->register');
+>>>>>>> 39f02db7ef892b95ac935f1ceaad3f3b69f7dbda
 });
 
 $routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $uri);
