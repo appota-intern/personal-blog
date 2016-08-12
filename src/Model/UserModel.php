@@ -8,32 +8,29 @@ use Entity;
 class UserModel extends BaseModel
 {
 
-    public function checkData($username, $password)
-    {
-        // $sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" . $name . "'";
-        // $row = $this->query($sql, "select");
-        // if (password_verify($pass, $row['pass'])) {
-        //     return true;
-        // }
-        // return false;
+    // public function checkData($username, $password)
+    // {
+    //     // $sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" . $name . "'";
+    //     // $row = $this->query($sql, "select");
+    //     // if (password_verify($pass, $row['pass'])) {
+    //     //     return true;
+    //     // }
+    //     // return false;
 
-        // var_dump($username);
-        // var_dump($password);
+    //     // $sql = "SELECT name, pass, email FROM user WHERE name = ?";
+    //     $sql  = "SELECT name, pass, email FROM user WHERE email = ?";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->bind_param("s", $username);
+    //     $stmt->execute();
 
-        // $sql = "SELECT name, pass, email FROM user WHERE name = ?";
-        $sql  = "SELECT name, pass, email FROM user WHERE email = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
+    //     $stmt->bind_result($name, $pass, $email);
 
-        $stmt->bind_result($name, $pass, $email);
-
-        $stmt->fetch();
-        if (password_verify($password, $pass)) {
-            return true;
-        }
-        return false;
-    }
+    //     $stmt->fetch();
+    //     if (password_verify($password, $pass)) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     public function addMember(\Entity\User $user)
     {
@@ -64,12 +61,10 @@ class UserModel extends BaseModel
             $user->setStatus($userStatus);
             return $user;
         }
-
-        //$row = $this->query($stmt, "insert");
         return false;
     }
 
-    public function checkDLN($type, $value)
+    public function checkUser($type, $value)
     {
 
         // $sql = "SELECT `" . $type . "` FROM `user` WHERE `" . $type . "` = '" . $value . "'";
@@ -85,6 +80,20 @@ class UserModel extends BaseModel
 
         $num_of_rows = $stmt->num_rows;
         return $num_of_rows;
+    }
+
+    public function getUserByEmail($email){
+        
+        $sql = "SELECT id, name FROM user WHERE email = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->bind_result($userId, $userName);
+        $stmt->fetch();
+        $user = new \Entity\User($email);
+        $user->setId($userId);
+        $user->setName($userName);
+        return $user;
     }
 
 }

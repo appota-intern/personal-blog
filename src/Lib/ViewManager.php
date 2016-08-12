@@ -16,11 +16,8 @@ class ViewManager
 
     public function load($view, $data = [])
     {
-        // echo $this->viewDir.'/'.$view.'.php';
-        // return;
         $file = $this->viewDir.'/'.$view.'.php';
         if (!file_exists($file)){
-            // echo 'd\' exist';
             return;
         }
 

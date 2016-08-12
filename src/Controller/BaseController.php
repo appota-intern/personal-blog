@@ -12,8 +12,6 @@ abstract class BaseController {
         header('location:' . getenv('BASE_URI') . $uri);
     }
 
-    // public function loadView($view) {
-    //  $this->title = $view;
 
 }
 

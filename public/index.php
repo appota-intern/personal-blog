@@ -19,6 +19,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
 	$routes->addRoute('GET', '/', 'Controller\\HomeController->index');
 	$routes->addRoute('GET', '/hello', 'Controller\\UserController->hello');
 	$routes->addRoute('POST', '/logout', 'Controller\\UserController->logout');
+    $routes->addRoute(['GET', 'POST'], '/admin', 'Controller\\UserController->post');
 	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\UserController->register');
 });
 
