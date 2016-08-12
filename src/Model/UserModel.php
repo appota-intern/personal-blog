@@ -82,18 +82,46 @@ class UserModel extends BaseModel
         return $num_of_rows;
     }
 
-    public function getUserByEmail($email){
+    // public function getUserByEmail($email){
         
-        $sql = "SELECT id, name FROM user WHERE email = ?";
+    //     $sql = "SELECT id, name, pass FROM user WHERE email = ?";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->bind_param("s", $email);
+    //     $stmt->execute();
+    //     $stmt->bind_result($userId, $userName, $password);
+    //     $result = $stmt->fetch();
+    //     if($result){
+    //         $user = new \Entity\User($email);
+    //         $user->setId($userId);
+    //         $user->setName($userName);
+    //         $user->setPass($password);
+    //         return $user;
+    //     }
+    //     //return false;
+
+    //     $stmt->close();
+    // }
+
+    public function getUserByEmail($email){
+        $sql = "SELECT * FROM user WHERE email = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
-        $stmt->bind_result($userId, $userName);
-        $stmt->fetch();
-        $user = new \Entity\User($email);
-        $user->setId($userId);
-        $user->setName($userName);
+        $result = $stmt->get_result();
+        $stmt->close();
+        if ($result->num_rows < 1) {
+            return false;
+        }
+        $row = $result->fetch_assoc();
+        $result->free();
+        $user = new \Entity\User($row['email']);
+        $user->setId($row['id']);
+        $user->setName($row['name']);
+        $user->setPass($row['pass']);
+        $user->setStatus($row['status']);
+        $user->setTimeStamp($row['timestamp']);
+        $user->setGroup_id($row['group_id']);
         return $user;
-    }
+}
 
 }

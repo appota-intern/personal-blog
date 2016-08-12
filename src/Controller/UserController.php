@@ -12,7 +12,9 @@ class UserController extends BaseController
     public function login()
     {
         session_start();
-        if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+        // if (isset($_SESSION['flag']) and $_SESSION[''] == true) {
+        
+        if (isset($_SESSION['loggedin'])) {
             $this->redirect('/hello');
             return;
         }
@@ -24,26 +26,32 @@ class UserController extends BaseController
 
             $usermodel = new Model\UserModel();
 
-             //$result = $usermodel->checkData($username, $passwords);
-             $user = $usermodel->getUserByEmail($username);
+            $user = $usermodel->getUserByEmail($username);
+            
 
-             if($user){
+            if($user){
+            
                 $pass = $user->getPass();
                 if (password_verify($passwords, $pass)) {
 
                     setcookie("id", session_id(), time() + 1800);
-                    $_SESSION['flag'] = true;
+                    //$_SESSION['flag'] = true;
 
+                    //$_SESSION['username'] = $username;
+
+                    $userId = $user->getId();
+                    $username = $user->getName();
+                    $_SESSION['loggedin'] = $userId;
                     $_SESSION['username'] = $username;
                     $this->redirect('/hello');
                     return;
                 }
         
+             }
+        }
         $this->view->load('login', [
             'title' => 'Login'
         ]);
-             }
-        }
     }
 
     public function logout()
@@ -70,7 +78,8 @@ class UserController extends BaseController
 
     public function checkLogin()
     {
-        if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+        // if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
+        if (isset($_SESSION['loggedin'])) {
             return true;
         } else {
             return false;
@@ -101,7 +110,7 @@ class UserController extends BaseController
                 //$this->loadView('register');
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error' => 'Email này đã có người dùng, nhập lại email khác'
+                    'error1' => 'Email này đã có người dùng, nhập lại email khác'
                 ]);
                 exit;
             }
@@ -113,7 +122,7 @@ class UserController extends BaseController
                 // $this->loadView('register');
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error' => 'Email này đã có người dùng, nhập lại email khác'
+                    'error2' => 'Tên này đã có người dùng, nhập lại tên khác'
                 ]);
                 exit;
             }

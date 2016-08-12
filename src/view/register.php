@@ -12,7 +12,9 @@
       <div class="controls">
         <input type="" name="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <p class="help-block">Please provide your username</p>
-       <p style="color: red;"><?= $error ?>></p>
+       <?php if (isset($error2)) { ?>
+       <p style="color: red;"><?= $error2 ?>></p>
+       <?php } ?>
       </div>
     </div>
  
@@ -31,7 +33,9 @@
       <div class="controls">
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <p class="help-block">Please provide your E-mail</p>
-       <p style="color: red;"><?= $error ?></p>
+       <?php if (isset($error1)) { ?>
+       <p style="color: red;"><?= $error1 ?></p>
+       <?php } ?>
       </div>
     </div>
 
