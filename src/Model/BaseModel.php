@@ -10,9 +10,9 @@ require_once ("\..\config.php");
 		protected $conn;
 		private $close;
 
-		public function __construct(){
-			$mysqli = new \mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
-			$this->conn = $mysqli;
+		public function __construct($conn){
+			$this->conn = $conn;
+			mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		}
 
 
@@ -20,7 +20,7 @@ require_once ("\..\config.php");
 			//$mysqli = new mysqli($this->hostname, $this->userhost, $this->password, $this->dbname);
 			//$mysqli = mysqli_connect(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
 			// $mysqli = new \mysqli(getenv('HOST'), getenv('USER_NAME'), getenv('PASSWORD'), getenv('DB_NAME'));
-			
+
 			if ($this->conn->connect_errno) {
 			    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
 			}
@@ -45,5 +45,3 @@ require_once ("\..\config.php");
 			$this->close = $this->conn->close();
 		}
 	}
-?>
-?>

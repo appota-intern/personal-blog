@@ -13,7 +13,7 @@ class UserController extends BaseController
     {
         session_start();
         // if (isset($_SESSION['flag']) and $_SESSION[''] == true) {
-        
+
         if (isset($_SESSION['loggedin'])) {
             $this->redirect('/hello');
             return;
@@ -24,13 +24,14 @@ class UserController extends BaseController
             $passwords      = $_POST['userpass'];
             $passwords_hash = password_hash($_POST['userpass'], PASSWORD_DEFAULT);
 
-            $usermodel = new Model\UserModel();
+            // $usermodel = new Model\UserModel();
+            $userModel = $this->model->load(Model\UserModel::class);
 
-            $user = $usermodel->getUserByEmail($username);
-            
+            $user = $userModel->getUserByEmail($username);
+
 
             if($user){
-            
+
                 $pass = $user->getPass();
                 if (password_verify($passwords, $pass)) {
 
@@ -46,7 +47,7 @@ class UserController extends BaseController
                     $this->redirect('/hello');
                     return;
                 }
-        
+
              }
         }
         $this->view->load('login', [
