@@ -14,7 +14,7 @@ header .navbar {
 .jumbotron-new-post {
     background-image: url('../images/write-post.jpg');
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: cover;
     padding-top: 75px;
     padding-bottom: 75px;
 }
