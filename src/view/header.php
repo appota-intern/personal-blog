@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        <?= $title ?>
+        <?= isset($title) ? $title : '' ?>
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="<?= base_uri('/styles/styles.css') ?>">
 </head>
 
-<body class="page-<?=$page ? $page : 'default'?>">
-    <header class="<?= $page == 'login' ? 'hidden' : '' ?>">
+<body class="page-<?= isset($page) ? $page : 'default' ?>">
+    <header class="<?= (isset($page) && $page == 'login') ? 'hidden' : '' ?>">
         <div class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">

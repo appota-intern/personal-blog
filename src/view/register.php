@@ -39,7 +39,7 @@
                         <option>Admin</option>
                     </select>
                 </div> -->
-                <div class="alert alert-danger <?= $error ? '' : 'hidden'?>"><?= $error ?></div>
+                <div class="alert alert-danger <?= !empty($error) ? '' : 'hidden'?>"><?= isset($error) ? $error : '' ?></div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -51,7 +51,7 @@
                             <form action="logout" method="post">
                                 <a class="btn btn-lg btn-success btn-block" href="login">Login</a>
                             </form>
-                           
+
                         </div>
                     </div>
                 </div>

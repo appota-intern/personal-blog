@@ -1,6 +1,6 @@
 <?php
 namespace Model;
-require_once ("\..\config.php");
+
 	class BaseModel{
 		// private $hostname = "localhost";
 		// private $userhost = "root";

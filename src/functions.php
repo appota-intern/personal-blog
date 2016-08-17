@@ -2,5 +2,5 @@
 
 function base_uri($path)
 {
-    return getenv(BASE_URI).$path;
+    return getenv('BASE_URI').$path;
 }

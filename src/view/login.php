@@ -10,7 +10,7 @@
                 <h2 class="text-center">Login to your account</h2>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
+                    <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus value="<?= isset($username) ? $username : '' ?>">
                 </div>
                 <div class="form-group">
                     <label for="userpass" class="sr-only">Password</label>
@@ -22,6 +22,7 @@
                         <strong>Remember me</strong>
                     </label>
                 </div>
+                <div class="alert alert-danger <?= !empty($error) ? '' : 'hidden'?>"><?= isset($error) ? $error : '' ?></div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">

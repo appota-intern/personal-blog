@@ -20,6 +20,8 @@ class UserController extends BaseController
             $this->redirect('/hello');
             return;
         }
+        $error = '';
+        $username = '';
         if (!empty($_POST['username']) && !empty($_POST['userpass'])) {
             $username       = $_POST['username'];
             $passwords      = $_POST['userpass'];
@@ -27,12 +29,10 @@ class UserController extends BaseController
 
             $user = $this->userModel->getUserByEmail($username);
 
-
             if($user){
 
                 $pass = $user->getPass();
                 if (password_verify($passwords, $pass)) {
-
                     setcookie("id", session_id(), time() + 1800);
 
                     $userId = $user->getId();
@@ -43,10 +43,15 @@ class UserController extends BaseController
                     return;
                 }
 
-             }
+            }
+
+            $error = 'Wrong email or password';
+
         }
         $this->view->load('login', [
-            'title' => 'Login'
+            'title' => 'Login',
+            'username' => $username,
+            'error' => $error
         ]);
     }
 
