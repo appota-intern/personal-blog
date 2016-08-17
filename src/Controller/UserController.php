@@ -4,8 +4,6 @@ namespace Controller;
 use Entity;
 use Model;
 
-//require_once "/../config.php";
-
 class UserController extends BaseController
 {
     protected $userModel;
@@ -17,20 +15,15 @@ class UserController extends BaseController
     public function login()
     {
         session_start();
-        // if (isset($_SESSION['flag']) and $_SESSION[''] == true) {
 
         if (isset($_SESSION['loggedin'])) {
             $this->redirect('/hello');
             return;
         }
-        //echo '123';
         if (!empty($_POST['username']) && !empty($_POST['userpass'])) {
             $username       = $_POST['username'];
             $passwords      = $_POST['userpass'];
             $passwords_hash = password_hash($_POST['userpass'], PASSWORD_DEFAULT);
-
-            // $usermodel = new Model\UserModel();
-            //$userModel = $this->model->load(Model\UserModel::class);
 
             $user = $this->userModel->getUserByEmail($username);
 
@@ -41,9 +34,6 @@ class UserController extends BaseController
                 if (password_verify($passwords, $pass)) {
 
                     setcookie("id", session_id(), time() + 1800);
-                    //$_SESSION['flag'] = true;
-
-                    //$_SESSION['username'] = $username;
 
                     $userId = $user->getId();
                     $username = $user->getName();
@@ -73,7 +63,6 @@ class UserController extends BaseController
     {
         session_start();
         if ($this->checkLogin()) {
-            //$this->loadView('hello');
             $this->view->load('hello', [
                 'title' => 'Hello'
             ]);
@@ -84,7 +73,6 @@ class UserController extends BaseController
 
     public function checkLogin()
     {
-        // if (isset($_SESSION['flag']) and $_SESSION['flag'] == true) {
         if (isset($_SESSION['loggedin'])) {
             return true;
         } else {
@@ -96,50 +84,48 @@ class UserController extends BaseController
     public function register()
     {
 
-        //$wan = "";
 
         if (!empty($_POST['name']) && !empty($_POST['pass']) && !empty($_POST['email'])) {
             $name = $_POST['name'];
-            //$pass     = md5($_POST['pass']);
             $pass     = password_hash($_POST['pass'], PASSWORD_DEFAULT);
             $email    = $_POST['email'];
-            $group_id = $_POST['group_id'];
+            //$group_id = $_POST['group_id'];
+            $repeatPass = $_POST['repeatPass'];
 
-            //$usermodel = new model\UserModel();
-
-            //$row_email = $usermodel->checkUser('email', $email);
             $row_email = $this->userModel->checkUser('email', $email);
-            //$row_name  = $usermodel->checkUser('name', $name);
             $row_name  = $this->userModel->checkUser('name', $name);
 
             //kiểm tra xem email nhập có bị trùng ko?
             if (($row_email > 0)) {
-                //$this->wan1 = "email này đã có người dùng, nhập lại email khác";
-                //$this->loadView('register');
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error' => 'Email này đã có người dùng, nhập lại email khác'
+                    'error1' => 'Email này đã có người dùng, nhập lại email khác'
                 ]);
                 exit;
             }
 
             //kiểm tra tên đăng nhập đã có người dùng hay chưa?
             if (($row_name > 0)) {
-
-                //$this->wan2 = "tên này đã có người dùng, nhập lại tên khác";
-                // $this->loadView('register');
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error' => 'Tên này đã có người dùng, nhập lại tên khác'
+                    'error2' => 'Tên này đã có người dùng, nhập lại tên khác'
                 ]);
                 exit;
             }
 
-            //$row = $usermodel->addMember($name, $pass, $email, $group_id);
+            //kiểm tra password nhập lại có chính xác hay không?
+            if($repeatPass != $_POST['pass']){
+                $this->view->load('register', [
+                    'title' => 'Register',
+                    'error3' => 'Password không khớp'
+                ]);
+                exit;
+            }
+
             $user = new \Entity\User($email);
             $user->setName($name);
             $user->setPass($pass);
-            $user->setGroup_id($group_id);
+            $user->setGroup_id('user');
             $user->setStatus('pending');
             $user->setTimeStamp(time());
 
@@ -149,7 +135,6 @@ class UserController extends BaseController
             }
 
         }
-        //$this->loadView('register');
         $this->view->load('register', [
             'title' => 'Register'
         ]);

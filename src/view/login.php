@@ -30,7 +30,9 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <a class="btn btn-lg btn-success btn-block" href="/register">Register</a>
+                            <form action="logout" method="post">
+                                <a class="btn btn-lg btn-success btn-block" href="register">Register</a>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -10,14 +10,27 @@
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Username</label>
                     <input type="" name="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+                    <?php if (isset($error1)) { ?>
+                    <p style="color: red;"><?= $error1 ?></p>
+                    <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Password</label>
                     <input type="password" name="pass" id="inputEmail" class="form-control" placeholder="Password" required autofocus>
                 </div>
                 <div class="form-group">
+                    <label for="inputEmail" class="sr-only">Repeat Password</label>
+                    <input type="password" name="repeatPass" id="inputEmail" class="form-control" placeholder="Repeat Password" required autofocus>
+                    <?php if (isset($error3)) { ?>
+                    <p style="color: red;"><?= $error3 ?></p>
+                    <?php } ?>
+                </div>
+                <div class="form-group">
                     <label for="inputEmail" class="sr-only">Email address</label>
                     <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                    <?php if (isset($error2)) { ?>
+                    <p style="color: red;"><?= $error2 ?></p>
+                    <?php } ?>
                 </div>
                 <!-- <div class="form-group">
                     <label class="control-label" for="email">Group_id</label>
@@ -35,7 +48,10 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <a class="btn btn-lg btn-success btn-block" href="/login">Login</a>
+                            <form action="logout" method="post">
+                                <a class="btn btn-lg btn-success btn-block" href="login">Login</a>
+                            </form>
+                           
                         </div>
                     </div>
                 </div>
