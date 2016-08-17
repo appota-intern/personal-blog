@@ -25,9 +25,9 @@ class UserController extends BaseController
             $passwords_hash = password_hash($_POST['userpass'], PASSWORD_DEFAULT);
 
             // $usermodel = new Model\UserModel();
-            $userModel = $this->model->load(Model\UserModel::class);
+            //$userModel = $this->model->load(Model\UserModel::class);
 
-            $user = $userModel->getUserByEmail($username);
+            $user = $this->userModel->getUserByEmail($username);
 
 
             if($user){
@@ -100,10 +100,12 @@ class UserController extends BaseController
             $email    = $_POST['email'];
             $group_id = $_POST['group_id'];
 
-            $usermodel = new model\UserModel();
+            //$usermodel = new model\UserModel();
 
-            $row_email = $usermodel->checkUser('email', $email);
-            $row_name  = $usermodel->checkUser('name', $name);
+            //$row_email = $usermodel->checkUser('email', $email);
+            $row_email = $this->userModel->checkUser('email', $email);
+            //$row_name  = $usermodel->checkUser('name', $name);
+            $row_name  = $this->userModel->checkUser('name', $name);
 
             //kiểm tra xem email nhập có bị trùng ko?
             if (($row_email > 0)) {
@@ -136,7 +138,7 @@ class UserController extends BaseController
             $user->setStatus('pending');
             $user->setTimeStamp(time());
 
-            $user = $usermodel->addMember($user);
+            $user = $this->userModel->addMember($user);
             if ($user) {
                 $this->redirect("/");
             }
