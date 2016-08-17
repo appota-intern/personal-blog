@@ -1,4 +1,4 @@
-<?php $this->load('header', ['title' => $title]) ?>
+<?php $this->load('header', ['title' => $title, 'page' => 'login']) ?>
 <div class="jumbotron jumbotron-primary">
     <h1 class="text-center">My Blog</h1>
 </div>
