@@ -3,7 +3,7 @@
         "psr-4": {
             "": "src"
         },
-        "files": ["src/config.php"]
+        "files": ["src/config.php", "src/functions.php"]
     },
     "require": {
         "nikic/fast-route": "^1.0"

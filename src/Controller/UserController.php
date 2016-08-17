@@ -113,7 +113,7 @@ class UserController extends BaseController
                 //$this->loadView('register');
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error1' => 'Email này đã có người dùng, nhập lại email khác'
+                    'error' => 'Email này đã có người dùng, nhập lại email khác'
                 ]);
                 exit;
             }
@@ -125,7 +125,7 @@ class UserController extends BaseController
                 // $this->loadView('register');
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error2' => 'Tên này đã có người dùng, nhập lại tên khác'
+                    'error' => 'Tên này đã có người dùng, nhập lại tên khác'
                 ]);
                 exit;
             }
