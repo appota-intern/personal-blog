@@ -5,9 +5,14 @@ use Entity;
 use Model;
 
 //require_once "/../config.php";
-require_once "\..\config.php";
+
 class UserController extends BaseController
 {
+    protected $userModel;
+    public function __construct(){
+        parent::__construct();
+        $this->userModel = $this->model->load(\Model\UserModel::class);
+    }
 
     public function login()
     {
