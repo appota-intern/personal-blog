@@ -37,17 +37,17 @@ class UserModel extends BaseModel
 
         //$sql = "INSERT INTO user (`name`, `pass`, `email`, `group_id`,`time`) VALUES ('" . $name . "', '" . $pass . "', '" . $email . "', '" . $group_id . "', '" . time() . "')";
 
-        $stmt = $this->conn->prepare("INSERT INTO user (name, pass, email, group_id, time) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO user (pass, email, group_id, time) VALUES (?, ?, ?, ?)");
         $t    = time();
         //$user = new \Entity\User($email);
         // $stmt->bind_param('ssssi', $user->getName(), $user->getPass(), $user->getEmail(), $user->getGroup_id(), $user->getTimeStamp());
-        $tmp_getName      = $user->getName();
+       // $tmp_getName      = $user->getName();
         $tmp_getPass      = $user->getPass();
         $tmp_getEmail     = $user->getEmail();
         $tmp_getGroup_id  = $user->getGroup_id();
         $tmp_getTimeStamp = $user->getTimeStamp();
 
-        $stmt->bind_param('ssssi', $tmp_getName, $tmp_getPass, $tmp_getEmail, $tmp_getGroup_id, $tmp_getTimeStamp);
+        $stmt->bind_param('sssi', $tmp_getPass, $tmp_getEmail, $tmp_getGroup_id, $tmp_getTimeStamp);
         $result = $stmt->execute();
 
         if ($result) {
