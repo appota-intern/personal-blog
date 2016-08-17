@@ -90,30 +90,19 @@ class UserController extends BaseController
     {
 
 
-        if (!empty($_POST['name']) && !empty($_POST['pass']) && !empty($_POST['email'])) {
-            $name = $_POST['name'];
+        if (!empty($_POST['pass']) && !empty($_POST['email'])) {
+            
             $pass     = password_hash($_POST['pass'], PASSWORD_DEFAULT);
             $email    = $_POST['email'];
-            //$group_id = $_POST['group_id'];
             $repeatPass = $_POST['repeatPass'];
 
             $row_email = $this->userModel->checkUser('email', $email);
-            $row_name  = $this->userModel->checkUser('name', $name);
-
+            
             //kiểm tra xem email nhập có bị trùng ko?
             if (($row_email > 0)) {
                 $this->view->load('register', [
                     'title' => 'Register',
                     'error1' => 'Email này đã có người dùng, nhập lại email khác'
-                ]);
-                exit;
-            }
-
-            //kiểm tra tên đăng nhập đã có người dùng hay chưa?
-            if (($row_name > 0)) {
-                $this->view->load('register', [
-                    'title' => 'Register',
-                    'error2' => 'Tên này đã có người dùng, nhập lại tên khác'
                 ]);
                 exit;
             }
@@ -128,7 +117,6 @@ class UserController extends BaseController
             }
 
             $user = new \Entity\User($email);
-            $user->setName($name);
             $user->setPass($pass);
             $user->setGroup_id('user');
             $user->setStatus('pending');

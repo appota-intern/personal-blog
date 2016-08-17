@@ -7,11 +7,12 @@
         <div class="col-md-6 col-md-offset-3">
             <form action="" method="POST">
                 <h2 class="text-center">Create new account</h2>
+               
                 <div class="form-group">
-                    <label for="inputEmail" class="sr-only">Username</label>
-                    <input type="" name="name" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
-                    <?php if (isset($error1)) { ?>
-                    <p style="color: red;"><?= $error1 ?></p>
+                    <label for="inputEmail" class="sr-only">Email address</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                    <?php if (isset($error2)) { ?>
+                    <p style="color: red;"><?= $error2 ?></p>
                     <?php } ?>
                 </div>
                 <div class="form-group">
@@ -25,13 +26,7 @@
                     <p style="color: red;"><?= $error3 ?></p>
                     <?php } ?>
                 </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <?php if (isset($error2)) { ?>
-                    <p style="color: red;"><?= $error2 ?></p>
-                    <?php } ?>
-                </div>
+                
                 <!-- <div class="form-group">
                     <label class="control-label" for="email">Group_id</label>
                     <select class="form-control" id="sel1" name="group_id">

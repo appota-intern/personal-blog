@@ -3,7 +3,6 @@ namespace Entity;
 class User {
 
     private $id;
-    private $name;
     private $pass;
     private $email;
     private $group_id;
@@ -32,10 +31,6 @@ class User {
         return $this->id;
     }
 
-    public function getName() {
-        return $this->name;
-    }
-
     public function getPass() {
         return $this->pass;
     }
@@ -58,10 +53,6 @@ class User {
 
     public function setId($id) {
         $this->id = $id;
-    }
-
-    public function setName($name) {
-        $this->name = $name;
     }
 
     public function setPass($pass) {
