@@ -116,10 +116,9 @@ class UserModel extends BaseModel
         $result->free();
         $user = new \Entity\User($row['email']);
         $user->setId($row['id']);
-        $user->setName($row['name']);
         $user->setPass($row['pass']);
         $user->setStatus($row['status']);
-        $user->setTimeStamp($row['timestamp']);
+        $user->setTimeStamp($row['time']);
         $user->setGroup_id($row['group_id']);
         return $user;
 }

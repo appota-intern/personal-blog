@@ -10,9 +10,9 @@
                
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <?php if (isset($error2)) { ?>
-                    <p style="color: red;"><?= $error2 ?></p>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="<?= isset($email) ? $email : '' ?>">
+                    <?php if (isset($error_email)) { ?>
+                    <p style="color: red;"><?= $error_email ?></p>
                     <?php } ?>
                 </div>
                 <div class="form-group">
@@ -22,8 +22,8 @@
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Repeat Password</label>
                     <input type="password" name="repeatPass" id="inputEmail" class="form-control" placeholder="Repeat Password" required autofocus>
-                    <?php if (isset($error3)) { ?>
-                    <p style="color: red;"><?= $error3 ?></p>
+                    <?php if (isset($error_pass)) { ?>
+                    <p style="color: red;"><?= $error_pass ?></p>
                     <?php } ?>
                 </div>
                 

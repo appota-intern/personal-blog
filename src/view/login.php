@@ -10,15 +10,16 @@
                 <h2 class="text-center">Login to your account</h2>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Email address</label>
-                    <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus value="<?= isset($username) ? $username : '' ?>">
+                    <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus value="<?php isset($username) ? $username : '' ;
+                                                                                                                                    if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>">
                 </div>
                 <div class="form-group">
                     <label for="userpass" class="sr-only">Password</label>
-                    <input type="password" name="userpass" class="form-control" placeholder="Password" required>
+                    <input type="password" name="userpass" class="form-control" placeholder="Password" required value="<?php if(isset($_COOKIE["member_pass"])) { echo $_COOKIE["member_pass"]; } ?>">
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="remember-me">
+                        <input type="checkbox" value="remember-me" name="remember" <?php if(isset($_COOKIE["member_login"])) { ?> checked <?php } ?>
                         <strong>Remember me</strong>
                     </label>
                 </div>

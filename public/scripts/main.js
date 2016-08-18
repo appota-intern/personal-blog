@@ -4,4 +4,5 @@ $(document).ready(function() {
     placeholder: 'Write new post...',
     height: 300
   });
+
 });

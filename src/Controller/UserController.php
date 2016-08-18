@@ -31,12 +31,25 @@ class UserController extends BaseController
 
             if($user){
 
+                if(!empty($_POST['remember'])){
+                    setcookie('member_login', $username, time() + 1800);
+                    setcookie('member_pass', $passwords, time() + 1800);
+                }
+                else{
+                    if(isset($_COOKIE["member_login"])){
+                        setcookie("member_login", "");
+                    }
+                    if(isset($_COOKIE["member_pass"])){
+                        setcookie("member_pass", "");
+                    }
+                }
+
                 $pass = $user->getPass();
                 if (password_verify($passwords, $pass)) {
                     setcookie("id", session_id(), time() + 1800);
 
                     $userId = $user->getId();
-                    $username = $user->getName();
+                    $username = $user->getEmail();
                     $_SESSION['loggedin'] = $userId;
                     $_SESSION['username'] = $username;
                     $this->redirect('/hello');
@@ -88,6 +101,7 @@ class UserController extends BaseController
 
     public function register()
     {
+        $email = '';
 
 
         if (!empty($_POST['pass']) && !empty($_POST['email'])) {
@@ -102,7 +116,7 @@ class UserController extends BaseController
             if (($row_email > 0)) {
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error1' => 'Email này đã có người dùng, nhập lại email khác'
+                    'error_email' => 'Email này đã có người dùng, nhập lại email khác'
                 ]);
                 exit;
             }
@@ -111,7 +125,7 @@ class UserController extends BaseController
             if($repeatPass != $_POST['pass']){
                 $this->view->load('register', [
                     'title' => 'Register',
-                    'error3' => 'Password không khớp'
+                    'error_pass' =>'Password không khớp'
                 ]);
                 exit;
             }
@@ -127,15 +141,11 @@ class UserController extends BaseController
                 $this->redirect("/");
             }
 
+
         }
         $this->view->load('register', [
-            'title' => 'Register'
-        ]);
-    }
-
-    public function post(){
-        $this->view->load('post', [
-            'title' => 'Admin'
+            'title' => 'Register',
+            'email' => $email
         ]);
     }
 
