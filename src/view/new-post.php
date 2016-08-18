@@ -9,9 +9,9 @@
             <div class="col-xs-12">
                 <form action="" method="POST" name="form_post">
                     <div class="form-group">
-                        <input class="form-control input-md" type="text" placeholder="Title">
+                        <input name="title" class="form-control input-md" type="text" placeholder="Title">
                     </div>
-                    <div id="summernote"></div>
+                    <textarea class="form-control" id="summernote" name="content"></textarea>
                     <button class="btn btn-primary btn-large"><i class="fa fa-save"></i> Save</button>
                     <button class="btn btn-success btn-large"><i class="fa fa-send"></i> Publish</button>
                 </form>
@@ -20,5 +20,5 @@
     </div>
 </div>
 
-<?php $this->load('footer', ['title' => $title]) ?>
+<?php $this->load('footer') ?>
 
