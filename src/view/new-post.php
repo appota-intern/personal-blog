@@ -12,9 +12,9 @@
                         <input name="title" class="form-control input-md" type="text" placeholder="Title">
                     </div>
                     <textarea class="form-control" id="summernote" name="content"></textarea>
-                    <button class="btn btn-primary btn-large"><i class="fa fa-save"></i> Save</button>
-                    <button class="btn btn-success btn-large"><i class="fa fa-send"></i> Publish</button>
-                    <button class="btn btn-primary btn-large"><i class="fa fa-save"></i> Delete</button>
+                    
+                    <input type="submit" name="submit" value="saved" class="btn btn-primary btn-large">
+                    <input type="submit" name="submit" value="published" class="btn btn-success btn-large">
                 </form>
             </div>
         </div>

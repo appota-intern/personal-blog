@@ -48,14 +48,8 @@ class UserModel extends BaseModel
         $result = $stmt->execute();
 
         if ($stmt->affected_rows == 1) {
-            // $sql  = "SELECT id, status FROM user WHERE email = ?";
-            // $stmt = $this->conn->prepare($sql);
-            // $stmt->bind_param("s", $tmp_getEmail);
-            // $stmt->execute();
-            // $stmt->bind_result($userId, $userStatus);
-            // $stmt->fetch();
+    
             $user->setId($stmt->insert_id);
-            //$user->setStatus($userStatus);
             return $user;
         }
         return false;

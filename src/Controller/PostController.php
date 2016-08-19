@@ -30,19 +30,16 @@ class PostController extends BaseController
             if(!empty($_POST['title']) && !empty($_POST['content'])){
                 $title   = $_POST['title'];
                 $content = $_POST['content'];
-
+                $status = $_POST['submit'];
                 $user_id = $_SESSION['loggedin'];
-
-                //$status = 'saved';
 
                 $post = new \Entity\Post($title);
                 $post->setUser_Id($user_id);
                 $post->setContent($content);
-                $post->setStatus('saved');
+                $post->setStatus($status);
                 $post->setCreate_At(time());
 
                 $post = $this->postModel->addPost($post);
-                var_dump($post);
                 if($post){
                     $this->redirect("/new-post");
                 }
