@@ -56,7 +56,7 @@ class PostController extends BaseController
             }
         }
        else{
-            echo "error";
+            $this->redirect("/login");
        }
         
     }

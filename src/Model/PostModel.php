@@ -16,15 +16,16 @@ class PostModel extends BaseModel{
 		//$row = ;
 
 		if($stmt->affected_rows == 1){
-			$id = $stmt->insert_id;
-			$sql = "SELECT id FROM posts WHERE id = ?";
-			$stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("s", $id);
-            $stmt->execute();
-            $stmt->bind_result($postId);
-            $stmt->fetch();
-            $post->setId($postId);
-            //$user->setStatus($userStatus);
+			// $id = $stmt->insert_id;
+			// $sql = "SELECT id FROM posts WHERE id = ?";
+			// $stmt = $this->conn->prepare($sql);
+   //          $stmt->bind_param("s", $id);
+   //          $stmt->execute();
+   //          $stmt->bind_result($postId);
+   //          $stmt->fetch();
+   //          $post->setId($postId);
+   //          //$user->setStatus($userStatus);
+			$post->setId($stmt->insert_id);
             return $post;
 		}
 

@@ -47,15 +47,15 @@ class UserModel extends BaseModel
         $stmt->bind_param('sssi', $tmp_getPass, $tmp_getEmail, $tmp_getGroup_id, $tmp_getTimeStamp);
         $result = $stmt->execute();
 
-        if ($result) {
-            $sql  = "SELECT id, status FROM user WHERE email = ?";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("s", $tmp_getEmail);
-            $stmt->execute();
-            $stmt->bind_result($userId, $userStatus);
-            $stmt->fetch();
-            $user->setId($userId);
-            $user->setStatus($userStatus);
+        if ($stmt->affected_rows == 1) {
+            // $sql  = "SELECT id, status FROM user WHERE email = ?";
+            // $stmt = $this->conn->prepare($sql);
+            // $stmt->bind_param("s", $tmp_getEmail);
+            // $stmt->execute();
+            // $stmt->bind_result($userId, $userStatus);
+            // $stmt->fetch();
+            $user->setId($stmt->insert_id);
+            //$user->setStatus($userStatus);
             return $user;
         }
         return false;
