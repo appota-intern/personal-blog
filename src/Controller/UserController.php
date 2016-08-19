@@ -22,6 +22,7 @@ class UserController extends BaseController
         }
         $error = '';
         $username = '';
+        $passwords = '';
         if (!empty($_POST['username']) && !empty($_POST['userpass'])) {
             $username       = $_POST['username'];
             $passwords      = $_POST['userpass'];
@@ -32,16 +33,14 @@ class UserController extends BaseController
             if($user){
 
                 if(!empty($_POST['remember'])){
-                    setcookie('member_login', $username, time() + 1800);
-                    setcookie('member_pass', $passwords, time() + 1800);
+                    setcookie('member_login', $username, time() + (86400 * 10));
+                    
                 }
                 else{
                     if(isset($_COOKIE["member_login"])){
                         setcookie("member_login", "");
                     }
-                    if(isset($_COOKIE["member_pass"])){
-                        setcookie("member_pass", "");
-                    }
+                    
                 }
 
                 $pass = $user->getPass();
@@ -64,7 +63,8 @@ class UserController extends BaseController
         $this->view->load('login', [
             'title' => 'Login',
             'username' => $username,
-            'error' => $error
+            'error' => $error,
+            'passwords' => $passwords
         ]);
     }
 

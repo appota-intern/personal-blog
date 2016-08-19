@@ -14,6 +14,7 @@
                     <textarea class="form-control" id="summernote" name="content"></textarea>
                     <button class="btn btn-primary btn-large"><i class="fa fa-save"></i> Save</button>
                     <button class="btn btn-success btn-large"><i class="fa fa-send"></i> Publish</button>
+                    <button class="btn btn-primary btn-large"><i class="fa fa-save"></i> Delete</button>
                 </form>
             </div>
         </div>

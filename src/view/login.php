@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="userpass" class="sr-only">Password</label>
-                    <input type="password" name="userpass" class="form-control" placeholder="Password" required value="<?php if(isset($_COOKIE["member_pass"])) { echo $_COOKIE["member_pass"]; } ?>">
+                    <input type="password" name="userpass" class="form-control" placeholder="Password" required value="<?= isset($passwords) ? $passwords : '' ?>">
                 </div>
                 <div class="checkbox">
                     <label>
