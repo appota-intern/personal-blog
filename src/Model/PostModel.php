@@ -12,13 +12,14 @@ class PostModel extends BaseModel{
 		$getCreate_At = $post->getCreate_At();
 
 		$stmt->bind_param('ssssi', $getUser_Id, $getTitle, $getContent, $getStatus, $getCreate_At);
-		$result = $stmt->execute();
-		//$result = $stmt->get_result();
+		$stmt->execute();
+		//$row = ;
 
-		if($result){
+		if($stmt->affected_rows == 1){
+			$id = $stmt->insert_id;
 			$sql = "SELECT id FROM posts WHERE id = ?";
 			$stmt = $this->conn->prepare($sql);
-           // $stmt->bind_param("s", max(id));
+            $stmt->bind_param("s", $id);
             $stmt->execute();
             $stmt->bind_result($postId);
             $stmt->fetch();

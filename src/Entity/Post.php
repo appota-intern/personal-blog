@@ -13,27 +13,27 @@ class Post{
 	}
 
 	public function getId(){
-		return $id;
+		return $this->id;
 	}
 
 	public function getUser_Id(){
-		return $user_id;
+		return $this->user_id;
 	}
 
 	public function getTitle(){
-		return $title;
+		return $this->title;
 	}
 
 	public function getContent(){
-		return $content;
+		return $this->content;
 	}
 
 	public function getStatus(){
-		return $status;
+		return $this->status;
 	}
 
 	public function getCreate_At(){
-		return $create_at;
+		return $this->create_at;
 	}
 
 //SET
