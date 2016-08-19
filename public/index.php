@@ -22,7 +22,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
     $routes->addRoute(['GET', 'POST'], '/admin', 'Controller\\UserController->post');
 	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\UserController->register');
     $routes->addRoute('GET', '/new-post', 'Controller\\PostController->create');
-    $routes->addRoute('POST', '/new-post', 'Controller\\PostController->post');
+    //$routes->addRoute('POST', '/new-post', 'Controller\\PostController->post');
 });
 
 $routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $uri);

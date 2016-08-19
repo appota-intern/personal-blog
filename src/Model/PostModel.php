@@ -1,19 +1,33 @@
 <?php
 namespace Model;
 class PostModel extends BaseModel{
-	public function addPost($user_id, $title, $body, $status){
-		$stmt = $this->conn->prepare("INSERT INTO posts (user_id, title, body, status, create_at) VALUES (?, ?, ?, ?, ?)");
-		$t = time();
-		$stmt->bind_param('ssssi', $user_id, $title, $body, $status, $t);
-		$stmt->execute();
-		$result = $stmt->get_result();
+	public function addPost(\Entity\Post $post){
 
-		return $result;
+		$stmt = $this->conn->prepare("INSERT INTO posts (user_id, title, content, status, create_at) VALUES (?, ?, ?, ?, ?)");
 
-		// $row = $result->fetch_array(MYSQLI_NUM);
-		
+		$getUser_Id = $post->getUser_Id();
+		$getTitle = $post->getTitle();
+		$getContent = $post->getContent();
+		$getStatus = $post->getStatus();
+		$getCreate_At = $post->getCreate_At();
 
-		// return $row;
+		$stmt->bind_param('ssssi', $getUser_Id, $getTitle, $getContent, $getStatus, $getCreate_At);
+		$result = $stmt->execute();
+		//$result = $stmt->get_result();
+
+		if($result){
+			$sql = "SELECT id FROM posts WHERE id = ?";
+			$stmt = $this->conn->prepare($sql);
+           // $stmt->bind_param("s", max(id));
+            $stmt->execute();
+            $stmt->bind_result($postId);
+            $stmt->fetch();
+            $post->setId($postId);
+            //$user->setStatus($userStatus);
+            return $post;
+		}
+
+		return false;
 
 	}
 

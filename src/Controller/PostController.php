@@ -23,28 +23,31 @@ class PostController extends BaseController
      */
     public function create()
     {
-        $this->view->load('new-post', [
-            'title' => 'Create new post'
-        ]);
-    }
-
-    public function post(){
         session_start();
         
         if(isset($_SESSION['loggedin'])){
 
             if(!empty($_POST['title']) && !empty($_POST['content'])){
-            $title   = $_POST['title'];
-            $content = $_POST['content'];
+                $title   = $_POST['title'];
+                $content = $_POST['content'];
 
-            $user_id = $_SESSION['loggedin'];
+                $user_id = $_SESSION['loggedin'];
 
-            $status = 'saved';
+                //$status = 'saved';
 
-            // $post = new \Model\PostModel();
-            $res = $this->postModel->addPost($user_id, $title, $content, $status);
+                $post = new \Entity\Post($title);
+                $post->setUser_Id($user_id);
+                $post->setContent($content);
+                $post->setStatus('saved');
+                $post->setCreate_At(time());
 
-            $this->redirect("/new-post");
+                $post = $this->postModel->addPost($post);
+                var_dump($post);
+                if($post){
+                    $this->redirect("/new-post");
+                }
+
+                
             }
             else{
                 $this->view->load('new-post', [
@@ -57,4 +60,5 @@ class PostController extends BaseController
        }
         
     }
+        
 }
