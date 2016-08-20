@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="userpass" class="sr-only">Password</label>
-                    <input type="password" name="userpass" class="form-control" placeholder="Password" required value="<?= isset($passwords) ? $passwords : '' ?>">
+                    <input type="password" name="userpass" class="form-control" placeholder="Password" required>
                 </div>
                 <div class="checkbox">
                     <label>
