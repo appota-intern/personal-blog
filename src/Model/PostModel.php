@@ -1,7 +1,10 @@
 <?php
 namespace Model;
-class PostModel extends BaseModel{
-	public function addPost(\Entity\Post $post){
+
+class PostModel extends BaseModel
+{
+    public function addPost(\Entity\Post $post)
+	{
 
 		$stmt = $this->conn->prepare("INSERT INTO posts (user_id, title, content, status, create_at) VALUES (?, ?, ?, ?, ?)");
 
@@ -14,14 +17,12 @@ class PostModel extends BaseModel{
 		$stmt->bind_param('ssssi', $getUser_Id, $getTitle, $getContent, $getStatus, $getCreate_At);
 		$stmt->execute();
 
-		if($stmt->affected_rows == 1){
-			
+		if ($stmt->affected_rows == 1) {
 			$post->setId($stmt->insert_id);
             return $post;
 		}
 
 		return false;
-
 	}
 
 }

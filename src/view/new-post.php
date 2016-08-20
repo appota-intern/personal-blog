@@ -13,8 +13,8 @@
                     </div>
                     <textarea class="form-control" id="summernote" name="content"></textarea>
                     
-                    <input type="submit" name="submit" value="saved" class="btn btn-primary btn-large">
-                    <input type="submit" name="submit" value="published" class="btn btn-success btn-large">
+                    <input type="submit" name="submit" value="save" class="btn btn-primary btn-large">
+                    <input type="submit" name="submit" value="publish" class="btn btn-success btn-large">
                 </form>
             </div>
         </div>

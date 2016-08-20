@@ -1,42 +1,12 @@
 <?php
-
-// loi vi If your using an IDE, you must start your code at the very first line
 namespace Model;
 
 use Entity;
 
 class UserModel extends BaseModel
 {
-
-    // public function checkData($username, $password)
-    // {
-    //     // $sql = "SELECT `name`, `pass`, `email` FROM `user`  WHERE `name` = '" . $name . "'";
-    //     // $row = $this->query($sql, "select");
-    //     // if (password_verify($pass, $row['pass'])) {
-    //     //     return true;
-    //     // }
-    //     // return false;
-
-    //     // $sql = "SELECT name, pass, email FROM user WHERE name = ?";
-    //     $sql  = "SELECT name, pass, email FROM user WHERE email = ?";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->bind_param("s", $username);
-    //     $stmt->execute();
-
-    //     $stmt->bind_result($name, $pass, $email);
-
-    //     $stmt->fetch();
-    //     if (password_verify($password, $pass)) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
     public function addMember(\Entity\User $user)
     {
-
-        //$sql = "INSERT INTO user (`name`, `pass`, `email`, `group_id`,`time`) VALUES ('" . $name . "', '" . $pass . "', '" . $email . "', '" . $group_id . "', '" . time() . "')";
-
         $stmt = $this->conn->prepare("INSERT INTO user (pass, email, group_id, time) VALUES (?, ?, ?, ?)");
         
         $tmp_getPass      = $user->getPass();
@@ -57,8 +27,6 @@ class UserModel extends BaseModel
 
     public function checkUser($type, $value)
     {
-
-        // $sql = "SELECT '" .$type. "' FROM user WHERE '". $type ."' = ?";
         $sql  = "SELECT $type FROM user WHERE $type = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $value);
@@ -69,7 +37,8 @@ class UserModel extends BaseModel
         return $num_of_rows;
     }
 
-    public function getUserByEmail($email){
+    public function getUserByEmail($email)
+    {
         $sql = "SELECT * FROM user WHERE email = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $email);
@@ -90,7 +59,8 @@ class UserModel extends BaseModel
         return $user;
     }
 
-    public function getUserById($id){
+    public function getUserById($id)
+    {
         $sql = "SELECT * FROM user WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $id);
@@ -98,7 +68,7 @@ class UserModel extends BaseModel
         $result = $stmt->get_result();
         $stmt->close();
 
-        if($result->num_rows < 1){
+        if ($result->num_rows < 1) {
             return false;
         }
         $row = $result->fetch_assoc();

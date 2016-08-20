@@ -7,7 +7,9 @@ use Model;
 class UserController extends BaseController
 {
     protected $userModel;
-    public function __construct(){
+
+    public function __construct()
+    {
         parent::__construct();
         $this->userModel = $this->model->load(\Model\UserModel::class);
     }
@@ -20,6 +22,7 @@ class UserController extends BaseController
             $this->redirect('/hello');
             return;
         }
+
         $error = '';
         $username = '';
         $passwords = '';
@@ -30,15 +33,15 @@ class UserController extends BaseController
 
             $user = $this->userModel->getUserByEmail($username);
 
-            if($user){
+            if ($user) {
 
-                if(!empty($_POST['remember'])){
+                if (!empty($_POST['remember'])) {
                     setcookie('member_login', $username, time() + (86400 * 10));
                     
-                }
-                else{
-                    if(isset($_COOKIE["member_login"])){
+                } else {
+                    if (isset($_COOKIE["member_login"])) {
                         setcookie("member_login", "");
+                        
                     }
                     
                 }
@@ -72,7 +75,9 @@ class UserController extends BaseController
     {
         session_start();
         session_unset();
+
         setcookie("id", true, time() - 1800);
+
         $this->redirect('/login');
         return;
     }
@@ -80,6 +85,7 @@ class UserController extends BaseController
     public function hello()
     {
         session_start();
+
         if ($this->checkLogin()) {
             $this->view->load('hello', [
                 'title' => 'Hello'
@@ -118,15 +124,17 @@ class UserController extends BaseController
                     'title' => 'Register',
                     'error_email' => 'Email này đã có người dùng, nhập lại email khác'
                 ]);
+
                 exit;
             }
 
             //kiểm tra password nhập lại có chính xác hay không?
-            if($repeatPass != $_POST['pass']){
+            if ($repeatPass != $_POST['pass']) {
                 $this->view->load('register', [
                     'title' => 'Register',
                     'error_pass' =>'Password không khớp'
                 ]);
+
                 exit;
             }
 
@@ -140,8 +148,6 @@ class UserController extends BaseController
             if ($user) {
                 $this->redirect("/");
             }
-
-
         }
         $this->view->load('register', [
             'title' => 'Register',
