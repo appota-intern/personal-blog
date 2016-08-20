@@ -12,8 +12,13 @@
                     <label for="inputEmail" class="sr-only">Email address</label>
                     <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="<?= isset($email) ? $email : '' ?>">
                     <?php if (isset($error_email)) { ?>
-                    <p style="color: red;"><?= $error_email ?></p>
+                    <p style="color: red;"><?= $error_email ?> </p>
                     <?php } ?>
+
+                    <?php if (isset($error_validate)) { ?>
+                    <p style="color: red;"><?= $error_validate ?></p>
+                    <?php } ?>
+
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Password</label>

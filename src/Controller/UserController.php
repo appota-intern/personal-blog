@@ -41,7 +41,7 @@ class UserController extends BaseController
                 } else {
                     if (isset($_COOKIE["member_login"])) {
                         setcookie("member_login", "");
-                        
+
                     }
                     
                 }
@@ -117,37 +117,47 @@ class UserController extends BaseController
             $repeatPass = $_POST['repeatPass'];
 
             $row_email = $this->userModel->checkUser('email', $email);
+
+            //validate email
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                //kiểm tra xem email nhập có bị trùng ko?
+                if (($row_email > 0)) {
+                    $this->view->load('register', [
+                        'title' => 'Register',
+                        'error_email' => 'Email này đã có người dùng, nhập lại email khác'
+                    ]);
+
+                    exit;
+                }
+
+                //kiểm tra password nhập lại có chính xác hay không?
+                if ($repeatPass != $_POST['pass']) {
+                    $this->view->load('register', [
+                        'title' => 'Register',
+                        'error_pass' =>'Password không khớp'
+                    ]);
+
+                    exit;
+                }
+
+                $user = new \Entity\User($email);
+                $user->setPass($pass);
+                $user->setGroup_id('user');
+                $user->setStatus('pending');
+                $user->setTimeStamp(time());
+
+                $user = $this->userModel->addMember($user);
+                if ($user) {
+                    $this->redirect("/");
+                }
+            } else {
+                $this->view->load('register', [
+                        'title' => 'Register',
+                        'error_validate' => 'Địa chỉ email không hợp lệ'
+                ]);
+            }
             
-            //kiểm tra xem email nhập có bị trùng ko?
-            if (($row_email > 0)) {
-                $this->view->load('register', [
-                    'title' => 'Register',
-                    'error_email' => 'Email này đã có người dùng, nhập lại email khác'
-                ]);
-
-                exit;
-            }
-
-            //kiểm tra password nhập lại có chính xác hay không?
-            if ($repeatPass != $_POST['pass']) {
-                $this->view->load('register', [
-                    'title' => 'Register',
-                    'error_pass' =>'Password không khớp'
-                ]);
-
-                exit;
-            }
-
-            $user = new \Entity\User($email);
-            $user->setPass($pass);
-            $user->setGroup_id('user');
-            $user->setStatus('pending');
-            $user->setTimeStamp(time());
-
-            $user = $this->userModel->addMember($user);
-            if ($user) {
-                $this->redirect("/");
-            }
+            
         }
         $this->view->load('register', [
             'title' => 'Register',
