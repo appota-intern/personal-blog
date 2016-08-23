@@ -23,12 +23,15 @@
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Password</label>
                     <input type="password" name="pass" id="inputEmail" class="form-control" placeholder="Password" required autofocus>
+                    <?php if (isset($error_pass)) { ?>
+                    <p style="color: red;"><?= $error_pass ?></p>
+                    <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="sr-only">Repeat Password</label>
                     <input type="password" name="repeatPass" id="inputEmail" class="form-control" placeholder="Repeat Password" required autofocus>
-                    <?php if (isset($error_pass)) { ?>
-                    <p style="color: red;"><?= $error_pass ?></p>
+                    <?php if (isset($error_repeatpass)) { ?>
+                    <p style="color: red;"><?= $error_repeatpass ?></p>
                     <?php } ?>
                 </div>
                 

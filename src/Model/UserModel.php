@@ -7,14 +7,15 @@ class UserModel extends BaseModel
 {
     public function addMember(\Entity\User $user)
     {
-        $stmt = $this->conn->prepare("INSERT INTO user (pass, email, group_id, time) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO user (name, pass, email, group_id, time) VALUES (?, ?, ?, ?, ?)");
         
+        $tmp_getName      = $user->getName();
         $tmp_getPass      = $user->getPass();
         $tmp_getEmail     = $user->getEmail();
         $tmp_getGroup_id  = $user->getGroup_id();
         $tmp_getTimeStamp = $user->getTimeStamp();
 
-        $stmt->bind_param('sssi', $tmp_getPass, $tmp_getEmail, $tmp_getGroup_id, $tmp_getTimeStamp);
+        $stmt->bind_param('ssssi', $tmp_getName, $tmp_getPass, $tmp_getEmail, $tmp_getGroup_id, $tmp_getTimeStamp);
         $result = $stmt->execute();
 
         if ($stmt->affected_rows == 1) {
