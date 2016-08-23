@@ -155,6 +155,8 @@ class UserController extends BaseController
                         'title' => 'Register',
                         'error_validate' => 'Địa chỉ email không hợp lệ'
                 ]);
+
+                exit;
             }
             
             
