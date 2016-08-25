@@ -10,6 +10,9 @@ class User
     private $group_id;
     private $status;
     private $timestamp;
+    const STATUS_ACTIVATED = 'activated';  
+    const STATUS_DEACTIVATED = 'deactivated'; 
+    const STATUS_PENDING = 'pending'; 
 
     public function __construct($email) 
     {
@@ -88,7 +91,7 @@ class User
 
     public function isActivated()
     {
-        if (($this->getStatus()) == "activated") {
+        if (($this->getStatus()) == (self::STATUS_ACTIVATED)) {
             return true;
         } else {
             return false;

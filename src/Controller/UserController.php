@@ -125,7 +125,6 @@ class UserController extends BaseController
             //$row_email = $this->userModel->checkUser('email', $email);
 
             //validate email
-            //if(filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/^(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8}$/', $_POST['pass']) && )
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 $error_validate = 'Địa chỉ email không hợp lệ';
@@ -141,6 +140,14 @@ class UserController extends BaseController
 
             }
 
+            //kiểm tra password nhập lại có chính xác hay không?
+            if ($repeatPass != $_POST['pass']) {
+                
+                $error_repeatpass ='Password không khớp';
+                $flag = false;
+
+            }
+            
             $getUserByEmail = $this->userModel->getUserByEmail($email);
             //kiểm tra xem email nhập có bị trùng ko?
             if ($getUserByEmail) {
@@ -151,17 +158,11 @@ class UserController extends BaseController
 
             }
 
-            //kiểm tra password nhập lại có chính xác hay không?
-            if ($repeatPass != $_POST['pass']) {
-                
-                $error_repeatpass ='Password không khớp';
-                $flag = false;
-
-            }
+            
 
             if ($flag == true) {
                 $user = new \Entity\User($email);
-                $index = stripos($email, "@gmail");
+                $index = stripos($email, "@");
                 $name = substr($email, 0, $index);
                 $user->setName($name);
                 $user->setPass($pass);
