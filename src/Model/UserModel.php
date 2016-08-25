@@ -26,18 +26,6 @@ class UserModel extends BaseModel
         return false;
     }
 
-    public function checkUser($type, $value)
-    {
-        $sql  = "SELECT $type FROM user WHERE $type = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $value);
-        $stmt->execute();
-        $stmt->store_result();
-
-        $num_of_rows = $stmt->num_rows;
-        return $num_of_rows;
-    }
-
     public function getUserByEmail($email)
     {
         $sql = "SELECT * FROM user WHERE email = ?";

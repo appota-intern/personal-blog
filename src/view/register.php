@@ -35,13 +35,6 @@
                     <?php } ?>
                 </div>
                 
-                <!-- <div class="form-group">
-                    <label class="control-label" for="email">Group_id</label>
-                    <select class="form-control" id="sel1" name="group_id">
-                        <option>User</option>
-                        <option>Admin</option>
-                    </select>
-                </div> -->
                 <div class="alert alert-danger <?= !empty($error) ? '' : 'hidden'?>"><?= isset($error) ? $error : '' ?></div>
                 <div class="row">
                     <div class="col-sm-6">

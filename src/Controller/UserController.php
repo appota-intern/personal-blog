@@ -47,7 +47,8 @@ class UserController extends BaseController
                 }
 
                 $pass = $user->getPass();
-                if (password_verify($passwords, $pass)) {
+                $status = $user->isActivated();
+                if (password_verify($passwords, $pass) && $status == true) {
                     setcookie("id", session_id(), time() + 1800);
 
                     $userId = $user->getId();
@@ -107,7 +108,12 @@ class UserController extends BaseController
 
     public function register()
     {
-        $email = '';
+        $email            = '';
+        $error_validate   = '';
+        $error_pass       = '';
+        $error_email      = '';
+        $error_repeatpass = '';
+        $flag = true;
 
 
         if (!empty($_POST['pass']) && !empty($_POST['email'])) {
@@ -116,68 +122,68 @@ class UserController extends BaseController
             $email    = $_POST['email'];
             $repeatPass = $_POST['repeatPass'];
 
-            $row_email = $this->userModel->checkUser('email', $email);
+            //$row_email = $this->userModel->checkUser('email', $email);
 
             //validate email
+            //if(filter_var($email, FILTER_VALIDATE_EMAIL) && preg_match('/^(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8}$/', $_POST['pass']) && )
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                $this->view->load('register', [
-                        'title' => 'Register',
-                        'error_validate' => 'Địa chỉ email không hợp lệ'
-                ]);
+                $error_validate = 'Địa chỉ email không hợp lệ';
+                $flag = false;
 
-                return;
             }
 
             // check pass
             if (!preg_match('/^(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8}$/', $_POST['pass'])) { 
-                $this->view->load('register', [
-                    'title' => 'Register',
-                    'error_pass' => 'Password phải có chiều dài 8 kí tự, tồn tại 1 kí tự đặc biệt, 1 kí tự in hoa và 1 chữ số'
-                ]);
 
-                return;
+                $error_pass = 'Password phải có chiều dài 8 kí tự, tồn tại 1 kí tự đặc biệt, 1 kí tự in hoa và 1 chữ số';
+                $flag = false;
+
             }
 
+            $getUserByEmail = $this->userModel->getUserByEmail($email);
             //kiểm tra xem email nhập có bị trùng ko?
-            if (($row_email > 0)) {
-                $this->view->load('register', [
-                    'title' => 'Register',
-                    'error_email' => 'Email này đã có người dùng, nhập lại email khác'
-                ]);
+            if ($getUserByEmail) {
 
-                return;
+                $error_email = 'Email này đã có người dùng, nhập lại email khác';
+                $flag = false;
+
             }
 
             //kiểm tra password nhập lại có chính xác hay không?
             if ($repeatPass != $_POST['pass']) {
-                $this->view->load('register', [
-                    'title' => 'Register',
-                    'error_repeatpass' =>'Password không khớp'
-                ]);
+                
+                $error_repeatpass ='Password không khớp';
+                $flag = false;
 
-                return;
             }
 
-            $user = new \Entity\User($email);
-            $index = stripos($email, "@gmail");
-            $name = substr($email, 0, $index);
-            $user->setName($name);
-            $user->setPass($pass);
-            $user->setGroup_id('user');
-            $user->setStatus('pending');
-            $user->setTimeStamp(time());
+            if ($flag == true) {
+                $user = new \Entity\User($email);
+                $index = stripos($email, "@gmail");
+                $name = substr($email, 0, $index);
+                $user->setName($name);
+                $user->setPass($pass);
+                $user->setGroup_id('user');
+                $user->setStatus('pending');
+                $user->setTimeStamp(time());
 
-            $user = $this->userModel->addMember($user);
-            if ($user) {
-                $this->redirect("/");
+                $user = $this->userModel->addMember($user);
+                if ($user) {
+                    $this->redirect("/");
+                }
             }
+            
 
         } 
             
         $this->view->load('register', [
             'title' => 'Register',
-            'email' => $email
+            'email' => $email,
+            'error_validate' => $error_validate,
+            'error_pass ' => $error_pass,
+            'error_repeatpass' => $error_repeatpass,
+            'error_email' => $error_email
         ]);
     }
 

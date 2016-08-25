@@ -86,6 +86,15 @@ class User
         $this->timestamp = $timestamp;
     }
 
+    public function isActivated()
+    {
+        if (($this->getStatus()) == "activated") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>
