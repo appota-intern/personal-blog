@@ -146,6 +146,7 @@ class UserController extends BaseController
             if ($getUserByEmail) {
 
                 $error_email = 'Email này đã có người dùng, nhập lại email khác';
+                $email = "";
                 $flag = false;
 
             }
