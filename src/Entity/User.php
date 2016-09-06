@@ -9,7 +9,7 @@ class User
     private $email;
     private $group_id;
     private $status;
-    private $timestamp;
+    private $time;
     const STATUS_ACTIVATED = 'activated';  
     const STATUS_DEACTIVATED = 'deactivated'; 
     const STATUS_PENDING = 'pending'; 
@@ -51,7 +51,7 @@ class User
 
     public function getTimeStamp() 
     {
-        return $this->timestamp;
+        return $this->time;
     }
 
     public function setId($id) 
@@ -84,9 +84,9 @@ class User
         $this->status = $status;
     }
 
-    public function setTimeStamp($timestamp) 
+    public function setTimeStamp($time) 
     {
-        $this->timestamp = $timestamp;
+        $this->time = $time;
     }
 
     public function isActivated()

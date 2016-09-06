@@ -122,8 +122,6 @@ class UserController extends BaseController
             $email    = $_POST['email'];
             $repeatPass = $_POST['repeatPass'];
 
-            //$row_email = $this->userModel->checkUser('email', $email);
-
             //validate email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 

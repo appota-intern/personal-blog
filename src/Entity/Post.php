@@ -8,7 +8,7 @@ class Post
 	private $title;
 	private $content;
 	private $status;
-	private $create_at;
+	private $created_at;
 
 	public function __construct($title)
 	{
@@ -40,9 +40,9 @@ class Post
 		return $this->status;
 	}
 
-	public function getCreate_At()
+	public function getCreated_At()
 	{
-		return $this->create_at;
+		return $this->created_at;
 	}
 
 //SET
@@ -71,8 +71,8 @@ class Post
 		$this->status = $status;
 	}
 
-	public function setCreate_At($create_at)
+	public function setCreated_At($created_at)
 	{
-		$this->create_at = $create_at;
+		$this->created_at = $created_at;
 	}
 }

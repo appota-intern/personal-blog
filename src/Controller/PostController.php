@@ -42,11 +42,21 @@ class PostController extends BaseController
                 $post->setUser_Id($user_id);
                 $post->setContent($content);
                 $post->setStatus($status);
-                $post->setCreate_At(time());
+                $post->setCreated_At(time());
 
                 $post = $this->postModel->addPost($post);
-                if ($post) {
-                    $this->redirect("/new-post");
+
+                if ($status == "published") {
+                    $id = $this->postModel->getIDMax();
+                    $post = $this->postModel->getPostByID($id);
+
+                    $title1 = $post->getTitle();
+                    $content = $post->getContent();
+
+                    $this->view->load('home', [
+                            'title' => 'Home'
+                        ]);
+
                 }
             } else {
                 $this->view->load('new-post', [
@@ -57,5 +67,21 @@ class PostController extends BaseController
             $this->redirect("/login");
         }
     }
+
+    // public function post()
+    // {
+    //     if($_POST['submit'] == "publish") {
+            
+    //         $post = new \Entity\Post($title);
+    //         $post = $this->PostModel->getPostByIDMax();
+
+    //         $title = $post->getTitle();
+    //         $content = $post->getContent();
+
+    //         $this->view->load('home', [
+    //                 'title' => 'Home'
+    //             ]);
+    //     }
+    // }
         
 }
