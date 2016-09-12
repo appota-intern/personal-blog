@@ -25,8 +25,15 @@ class PostController extends BaseController
     public function create()
     {
         session_start();
-        
+        $note = "";
+        $error_post = "";
+
         if (isset($_SESSION['loggedin'])) {
+
+            if(empty($_POST['title']) or empty($_POST['content'])) {
+                $error_post = "Trường này không được rỗng";
+            }
+
             if (!empty($_POST['title']) && !empty($_POST['content'])) {
                 $title   = $_POST['title'];
                 $content = $_POST['content'];
@@ -46,42 +53,41 @@ class PostController extends BaseController
 
                 $post = $this->postModel->addPost($post);
 
-                if ($status == "published") {
-                    $id = $this->postModel->getIDMax();
-                    $post = $this->postModel->getPostByID($id);
-
-                    $title1 = $post->getTitle();
-                    $content = $post->getContent();
-
-                    $this->view->load('home', [
-                            'title' => 'Home'
-                        ]);
-
-                }
-            } else {
-                $this->view->load('new-post', [
-                    'title' => 'Create new post'
-                ]);
+                $note = "Dữ liệu đã được thêm thành công";
             }
+
+            $this->view->load('new-post', [
+                'title' => 'Create Post',
+                'note' => $note,
+                'error_post' => $error_post
+            ]);
         } else {
             $this->redirect("/login");
         }
     }
 
-    // public function post()
-    // {
-    //     if($_POST['submit'] == "publish") {
-            
-    //         $post = new \Entity\Post($title);
-    //         $post = $this->PostModel->getPostByIDMax();
+    public function showPost()
+    {
+        $idmax = $this->postModel->getIDMax();
+        for ($i = 30; $i < $idmax; $i++) {
 
-    //         $title = $post->getTitle();
-    //         $content = $post->getContent();
+            $post = $this->postModel->getPostByID($i);
+            $title_post = $post->getTitle();
+            $content_post = $post->getContent();
+            $status_post = $post->getStatus();
+            $created_at_post = $post->getCreated_At();
+            $created_at_post = date('Y-m-d', $created_at_post);
 
-    //         $this->view->load('home', [
-    //                 'title' => 'Home'
-    //             ]);
-    //     }
-    // }
+            $this->view->load('fullpost', [
+                    'title' => 'Full post',
+                    'title_post' => $title_post,
+                    'content_post' => $content_post,
+                    'id_post' => $i,
+                    'status_post' => $status_post,
+                    'create_at_post' => $created_at_post
+            ]);
+        }
+        
+    }
         
 }
