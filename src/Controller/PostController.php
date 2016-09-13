@@ -68,26 +68,12 @@ class PostController extends BaseController
 
     public function showPost()
     {
-        $idmax = $this->postModel->getIDMax();
-        for ($i = 30; $i < $idmax; $i++) {
 
-            $post = $this->postModel->getPostByID($i);
-            $title_post = $post->getTitle();
-            $content_post = $post->getContent();
-            $status_post = $post->getStatus();
-            $created_at_post = $post->getCreated_At();
-            $created_at_post = date('Y-m-d', $created_at_post);
-
-            $this->view->load('fullpost', [
-                    'title' => 'Full post',
-                    'title_post' => $title_post,
-                    'content_post' => $content_post,
-                    'id_post' => $i,
-                    'status_post' => $status_post,
-                    'create_at_post' => $created_at_post
-            ]);
-        }
+        $rows = $this->postModel->getListPost(array('status'=>'published'));
         
+        $this->view->load('fullpost', [
+                'rows' => $rows, 
+                'title' => 'Full post'
+            ]); 
     }
-        
 }

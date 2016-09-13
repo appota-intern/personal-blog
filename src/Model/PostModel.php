@@ -67,4 +67,30 @@ class PostModel extends BaseModel
         return $post;
     }
 
+    public function getListPost($filter=[]) 
+    {
+        $key = array_keys($filter);
+        $key = $key[0];
+        $value = $filter[$key];
+
+        $listPost = array();
+        $sql = "SELECT * FROM posts WHERE $key = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $value);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        if ($result->num_rows < 1) {
+            return false;
+        }
+        
+        while ($row = $result->fetch_assoc()) {
+            array_push($listPost, $row);
+        }
+        
+        return $listPost;
+        
+    }
+
 }
