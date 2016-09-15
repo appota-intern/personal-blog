@@ -69,7 +69,10 @@ class PostController extends BaseController
     public function showPost()
     {
 
-        $rows = $this->postModel->getListPost(array('status'=>'published'));
+        $rows = $this->postModel->getListPost(array(
+            'status'=>array('bind' => 's', 'value' => 'published'),
+            'user_id' => array('bind' => 's', 'value' => '1'))
+        );
         
         $this->view->load('fullpost', [
                 'rows' => $rows, 

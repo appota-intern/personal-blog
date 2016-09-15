@@ -67,16 +67,36 @@ class PostModel extends BaseModel
         return $post;
     }
 
-    public function getListPost($filter=[]) 
+    public function getListPost($filter=[], $limit=10, $skip=0) 
     {
-        $key = array_keys($filter);
-        $key = $key[0];
-        $value = $filter[$key];
+        $sql = "SELECT * FROM posts WHERE 1 AND ";
+        $bind = '';
+        $params = array();
+        foreach ($filter as $key => $value) {
+            $bind .= $value['bind'];
+            $sql .= "$key = ? AND ";
+        }
+        array_push($params, $bind);
+        foreach ($filter as $key => $value) {
+            array_push($params, $value['value']);
+        }
 
+        $tmp = array();
+        foreach($params as $key => $value) {
+            $tmp[$key] = &$params[$key]; // Magic. Do not touch :)))
+        }
+            
+
+        // http://stackoverflow.com/questions/1913899/mysqli-binding-params-using-call-user-func-array
+        // http://php.net/manual/en/mysqli-stmt.bind-param.php
+        
+        $sql .= "1 LIMIT $limit OFFSET $skip";
         $listPost = array();
-        $sql = "SELECT * FROM posts WHERE $key = ?";
+        // $sql = "SELECT * FROM posts WHERE $key = ? LIMIT $limit OFFSET $skip";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $value);
+        $count = 0;
+        call_user_func_array(array($stmt, 'bind_param'), $tmp);
+        
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();
