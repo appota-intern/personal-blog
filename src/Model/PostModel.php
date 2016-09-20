@@ -73,12 +73,25 @@ class PostModel extends BaseModel
         $bind = '';
         $params = array();
         foreach ($filter as $key => $value) {
-            $bind .= $value['bind'];
+            $b = '';
+            switch (gettype($value)) {
+                case 'integer':
+                    $b = 'i';
+                    break;
+                case 'string':
+                    $b = 's';
+                    break;
+                case 'double':
+                    $b = 'd';
+                    break;
+            }
+            $bind .= $b;
+            
             $sql .= "$key = ? AND ";
         }
         array_push($params, $bind);
         foreach ($filter as $key => $value) {
-            array_push($params, $value['value']);
+            array_push($params, $value);
         }
 
         $tmp = array();
@@ -92,7 +105,7 @@ class PostModel extends BaseModel
         
         $sql .= "1 LIMIT $limit OFFSET $skip";
         $listPost = array();
-        // $sql = "SELECT * FROM posts WHERE $key = ? LIMIT $limit OFFSET $skip";
+        
         $stmt = $this->conn->prepare($sql);
         $count = 0;
         call_user_func_array(array($stmt, 'bind_param'), $tmp);
@@ -102,7 +115,7 @@ class PostModel extends BaseModel
         $stmt->close();
 
         if ($result->num_rows < 1) {
-            return false;
+            return [];
         }
         
         while ($row = $result->fetch_assoc()) {

@@ -70,9 +70,11 @@ class PostController extends BaseController
     {
 
         $rows = $this->postModel->getListPost(array(
-            'status'=>array('bind' => 's', 'value' => 'published'),
-            'user_id' => array('bind' => 's', 'value' => '1'))
-        );
+            
+            'status'=> 'published',
+            'user_id' => 2
+
+        ));
         
         $this->view->load('fullpost', [
                 'rows' => $rows, 
