@@ -119,7 +119,15 @@ class PostModel extends BaseModel
         }
         
         while ($row = $result->fetch_assoc()) {
-            array_push($listPost, $row);
+            $post = new \Entity\Post($row['title']);
+            $post->setId($row['id']);
+            $post->setUser_Id($row['user_id']);
+            $post->setTitle($row['title']);
+            $post->setContent($row['content']);
+            $post->setStatus($row['status']);
+            $post->setCreated_At($row['created_at']);
+
+            array_push($listPost, $post);
         }
         
         return $listPost;

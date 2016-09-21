@@ -13,13 +13,13 @@
 					<p class="id">Create At</p>
 					<p class="action">Action</p>
 				</div>
-				<?php foreach ($rows as $item) { ?>
+				<?php foreach ($listPost as $post) { ?>
 					<?php 
-						$id_post = $item['id'];
-			            $title_post = $item['title'];
-			            $content_post = $item['content'];
-			            $status_post = $item['status'];
-			            $created_at_post = $item['created_at'];
+						$id_post = $post->getId();
+			            $title_post = $post->getTitle();
+			            $content_post = $post->getContent();
+			            $status_post = $post->getStatus();
+			            $created_at_post = $post->getCreated_At();
 			            $created_at_post = date("Y-m-d",$created_at_post);
 					?>
 					<div class="row even">
