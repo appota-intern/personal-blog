@@ -4,14 +4,28 @@
     <div class="col-sm-4">
       <span class="glyphicon glyphicon-globe logo"></span>
     </div>
-    <div class="col-sm-8">
-      <h2>Title: <?= isset($title1) ? $title1 : '' ?></h2>
+    <div class="col-sm-4">
+      <?php foreach ($listPost as $post) {  
+
+              $id_post = $post->getId();
+              $title_post = $post->getTitle();
+              $content_post = $post->getContent();
+              $status_post = $post->getStatus();
+              $created_at_post = $post->getCreated_At();
+              $created_at_post = date("Y-m-d",$created_at_post);      
+
+        ?>
       
-      <p><strong>Content:</strong> <?php 
-      if(isset($_POST['$content'])) {
-        echo $content;
-      }
-      ?></p>
+        <h2><?= isset($title_post) ? $title_post : '' ?></h2>
+
+        <p><?= isset($content_post) ? $content_post : '' ?></p>
+        <hr class="featurette-divider">
+        <?php } ?>
+      
+
+    </div>
+
+    <div class="col-sm-4">
     </div>
   </div>
 </div>

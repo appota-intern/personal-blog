@@ -27,11 +27,12 @@ class PostController extends BaseController
         session_start();
         $note = "";
         $error_post = "";
+        $flag = true;
 
         if (isset($_SESSION['loggedin'])) {
 
             if(empty($_POST['title']) or empty($_POST['content'])) {
-                $error_post = "Trường này không được rỗng";
+                $error_post = "Tiêu đề và nội dung không được rỗng";
             }
 
             if (!empty($_POST['title']) && !empty($_POST['content'])) {
@@ -41,37 +42,53 @@ class PostController extends BaseController
 
                 if ($_POST['submit'] == "save") {
                     $status = "saved";
+
                 } elseif ($_POST['submit'] == "publish") {
                     $status = "published";
+
                 }
 
-                $post = new \Entity\Post($title);
-                $post->setUser_Id($user_id);
-                $post->setContent($content);
-                $post->setStatus($status);
-                $post->setCreated_At(time());
+                if (strlen($content) < 10) {
+                    $error_post .= "Nội dung phải dài tối thiểu 10 kí tự trở lên</br>";
+                    $content = "";
+                    $flag = false;
+                }
+                
+                if (strlen($title) < 5) {
+                    $error_post .= "Tiêu đề phải dài tối thiểu từ 5 kí tự trở lên</br>";
+                    $title = "";
+                    $flag = false;
+                }
 
-                $post = $this->postModel->addPost($post);
+                if ($flag == true) {
+                    $post = new \Entity\Post($title);
+                    $post->setUser_Id($user_id);
+                    $post->setContent($content);
+                    $post->setStatus($status);
+                    $post->setCreated_At(time());
 
-                $note = "Dữ liệu đã được thêm thành công";
+                    $post = $this->postModel->addPost($post);
+
+                    $note = "Dữ liệu đã được thêm thành công";
+                }
+
             }
 
             $this->view->load('new-post', [
                 'title' => 'Create Post',
                 'note' => $note,
-                'error_post' => $error_post
+                'error_post' => $error_post,
             ]);
+
         } else {
             $this->redirect("/login");
         }
     }
 
-    public function showPost()
+    public function listPost()
     {
 
         $listPost = $this->postModel->getListPost(array(
-            
-            'status'=> 'published',
             'user_id' => 1
 
         ));
@@ -79,6 +96,20 @@ class PostController extends BaseController
         $this->view->load('fullpost', [
                 'listPost' => $listPost, 
                 'title' => 'Full post'
+            ]); 
+    }
+
+    public function showPost() 
+    {
+        $listPost = $this->postModel->getListPost(array(
+            'status' => 'published',
+            'user_id' => 1
+
+        ));
+
+         $this->view->load('home', [
+                'listPost' => $listPost, 
+                'title' => 'Home'
             ]); 
     }
 }

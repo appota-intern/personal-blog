@@ -13,8 +13,8 @@
 					<p class="id">Create At</p>
 					<p class="action">Action</p>
 				</div>
-				<?php foreach ($listPost as $post) { ?>
-					<?php 
+				<?php foreach ($listPost as $post) {
+					
 						$id_post = $post->getId();
 			            $title_post = $post->getTitle();
 			            $content_post = $post->getContent();

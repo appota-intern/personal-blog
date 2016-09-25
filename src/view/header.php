@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse-header">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">Home</a>
+                            <a href="home">Home</a>
                         </li>
                         <li>
                             <a href="#">About</a>
@@ -40,10 +40,10 @@
                             <a href="#">Contact</a>
                         </li>
                         <li>
-                            <a href="/login">Login</a>
+                            <a href="login">Login</a>
                         </li>
                         <li>
-                            <a href="/register">Register</a>
+                            <a href="register">Register</a>
                         </li>
                     </ul>
                 </div>

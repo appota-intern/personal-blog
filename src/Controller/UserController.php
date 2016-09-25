@@ -155,9 +155,7 @@ class UserController extends BaseController
                 $flag = false;
 
             }
-
             
-
             if ($flag == true) {
                 $user = new \Entity\User($email);
                 $index = stripos($email, "@");
