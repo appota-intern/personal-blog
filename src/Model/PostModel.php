@@ -96,7 +96,7 @@ class PostModel extends BaseModel
 
         $tmp = array();
         foreach($params as $key => $value) {
-            $tmp[$key] = &$params[$key]; // Magic. Do not touch :)))
+            $tmp[$key] = &$params[$key];
         }
             
 

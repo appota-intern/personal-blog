@@ -112,4 +112,19 @@ class PostController extends BaseController
                 'title' => 'Home'
             ]); 
     }
+
+    public function post() {
+        
+        $id = $_GET['id'];
+        $post = $this->postModel->getPostByID($id);
+
+        $content_post = $post->getContent();
+        $title_post = $post->getTitle();
+
+        $this->view->load('post', [
+                'content_post' => $content_post,
+                'title_post' => $title_post,
+                'title' => 'Post',
+            ]);
+    }
 }
