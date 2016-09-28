@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_uri('/styles/styles.css') ?>">
+    <link rel="stylesheet" href="<?= base_uri('/styles/styles.css') ?>"
 </head>
 
 <body class="page-<?= isset($page) ? $page : 'default' ?>">

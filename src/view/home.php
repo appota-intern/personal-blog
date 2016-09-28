@@ -19,7 +19,7 @@
       
         <h2><?= isset($title_post) ? $title_post : '' ?></h2>
 
-        <p><?= isset($content_post) ? $content_post : '' ?><a class="read-more" href="http://localhost/web-tt/personal-blog/public/post?id=<?php echo $id_post;?>"> » </a></p> <!-- cho nay c để href c de link cuar controller-->
+        <p><?= isset($content_post) ? $content_post : '' ?><a class="read-more" href="post/<?php echo $id_post;?>"> » </a></p>
         <hr class="featurette-divider">
         <?php } ?>
       
