@@ -25,6 +25,27 @@ class PostModel extends BaseModel
 		return false;
 	}
 
+    public function deletePost($id)
+    {
+        
+        $stmt = $this->conn->prepare("DELETE FROM posts WHERE id = ?");
+
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+
+        if ($stmt->affected_rows == 1) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public function editPost($id)
+    {
+        //$stmt = $this->conn->prepare("")
+    }
+
     public function getIDMax()
     {
         $sql = "SELECT max(id) AS id_max FROM posts";

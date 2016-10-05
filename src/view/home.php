@@ -1,10 +1,11 @@
 <?php $this->load('header', ['title' => $title]) ?>
 <div class="container-fluid bg-grey">
+  
   <div class="row">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-globe logo"></span>
+      
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" style="padding: 40px;">
       <?php foreach ($listPost as $post) {  
 
               $id_post = $post->getId();
@@ -17,7 +18,7 @@
 
         ?>
       
-        <h2><?= isset($title_post) ? $title_post : '' ?></h2>
+        <h2 style="margin-bottom: 3.4rem;"><?= isset($title_post) ? $title_post : '' ?></h2>
 
         <p><?= isset($content_post) ? $content_post : '' ?><a class="read-more" href="post/<?php echo $id_post;?>"> » </a></p>
         <hr class="featurette-divider">
@@ -29,6 +30,7 @@
     <div class="col-sm-4">
     </div>
   </div>
+ 
 </div>
 
 <hr class="featurette-divider">

@@ -25,6 +25,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
     $routes->addRoute(['GET', 'POST'],'/full-post', 'Controller\\PostController->listPost');
     $routes->addRoute(['GET', 'POST'],'/home', 'Controller\\PostController->showPost');
     $routes->addRoute('GET', '/post/{id}', 'Controller\\PostController->post');
+    $routes->addRoute('GET', '/delete/{id}', 'Controller\\PostController->delete');
     
 });
 

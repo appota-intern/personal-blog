@@ -34,7 +34,7 @@
 						<p class="id"><?= isset($created_at_post) ? $created_at_post : '' ?></p>
 						<p class="action">
 							<a href="">Edit</a>
-							<a href="">Delete</a>
+							<a href="delete/<?php echo $id_post; ?>">Delete</a>
 						</p>
 					</div>
 				<?php } ?>
@@ -44,7 +44,7 @@
 
 		<div id="container">
 			<a href="new-post" class="btn btn-primary">Add Post</a>
-			<a id="" href="" class="btn btn-primary">Delete Post</a>
+			<a href="delete-post" class="btn btn-primary">Delete Post</a>
 		</div>
 	</div>
 <?php $this->load('footer'); ?>

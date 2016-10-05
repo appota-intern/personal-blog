@@ -113,21 +113,26 @@ class PostController extends BaseController
             ]); 
     }
 
-    public function post() {
-        // var_dump($id);
-        var_dump ($_GET['id']);
-        //var_dump($id);
-        // $id = $_GET['id'];
+    public function post($id) 
+    {
         
-        // $post = $this->postModel->getPostByID($id);
+        $post = $this->postModel->getPostByID($id);
 
-        // $content_post = $post->getContent();
-        // $title_post = $post->getTitle();
+        $content_post = $post->getContent();
+        $title_post = $post->getTitle();
 
-        // $this->view->load('post', [
-        //         'content_post' => $content_post,
-        //         'title_post' => $title_post,
-        //         'title' => 'Post',
-        //     ]);
+        $this->view->load('post', [
+                'content_post' => $content_post,
+                'title_post' => $title_post,
+                'title' => 'Post',
+            ]);
+    }
+
+    public function delete($id) 
+    {
+
+        $delete = $this->postModel->deletePost($id);
+
+        $this->listPost();
     }
 }
