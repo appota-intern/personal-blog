@@ -3,6 +3,7 @@
 namespace Controller;
 use Model;
 use Entity;
+use DOMDocument;
 
 /**
  * PostController
@@ -40,6 +41,7 @@ class PostController extends BaseController
                 $content = $_POST['content'];
                 $user_id = $_SESSION['loggedin'];
 
+
                 if ($_POST['submit'] == "save") {
                     $status = "saved";
 
@@ -47,6 +49,9 @@ class PostController extends BaseController
                     $status = "published";
 
                 }
+
+                //if()
+
 
                 if (strlen($content) < 10) {
                     $error_post .= "Nội dung phải dài tối thiểu 10 kí tự trở lên</br>";
@@ -61,6 +66,22 @@ class PostController extends BaseController
                 }
 
                 if ($flag == true) {
+                    $doc = new DOMDocument();
+                    $doc->loadHTML($content);
+                    $dom = $doc->documentElement;
+                    $block_tags = ['script'];
+                    foreach ($block_tags as $bt){
+                        $tags = $doc->getElementsByTagName($bt);
+
+                        foreach ($tags as $tag) {
+                            $tag->parentNode->removeChild($tag);
+                        }
+
+                    }
+
+                    $html_fragment = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
+                    $content = $html_fragment;
+
                     $post = new \Entity\Post($title);
                     $post->setUser_Id($user_id);
                     $post->setContent($content);
