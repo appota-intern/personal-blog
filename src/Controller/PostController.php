@@ -66,21 +66,25 @@ class PostController extends BaseController
                 }
 
                 if ($flag == true) {
-                    $doc = new DOMDocument();
-                    $doc->loadHTML($content);
-                    $dom = $doc->documentElement;
-                    $block_tags = ['script'];
-                    foreach ($block_tags as $bt){
-                        $tags = $doc->getElementsByTagName($bt);
+                    /*
+                    // $doc = new DOMDocument();
+                    // $doc->loadHTML($content);
+                    // $dom = $doc->documentElement;
+                    // $block_tags = ['script'];
+                    // foreach ($block_tags as $bt){
+                    //     $tags = $doc->getElementsByTagName($bt);
 
-                        foreach ($tags as $tag) {
-                            $tag->parentNode->removeChild($tag);
-                        }
+                    //     foreach ($tags as $tag) {
+                    //         $tag->parentNode->removeChild($tag);
+                    //     }
 
-                    }
+                    // }
 
-                    $html_fragment = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
-                    $content = $html_fragment;
+                    // $html_fragment = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
+                    
+                    */
+                    $title = htmlentities($title);
+                    $content = strip_tags($content);
 
                     $post = new \Entity\Post($title);
                     $post->setUser_Id($user_id);
