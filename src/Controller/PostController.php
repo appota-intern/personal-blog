@@ -3,7 +3,6 @@
 namespace Controller;
 use Model;
 use Entity;
-use DOMDocument;
 
 /**
  * PostController
@@ -50,9 +49,6 @@ class PostController extends BaseController
 
                 }
 
-                //if()
-
-
                 if (strlen($content) < 10) {
                     $error_post .= "Nội dung phải dài tối thiểu 10 kí tự trở lên</br>";
                     $content = "";
@@ -61,6 +57,25 @@ class PostController extends BaseController
                 
                 if (strlen($title) < 5) {
                     $error_post .= "Tiêu đề phải dài tối thiểu từ 5 kí tự trở lên</br>";
+                    $title = "";
+                    $flag = false;
+                }
+
+                $allowed_tags = ['p','br','b','i','img','span','h1','h2','h3','h4','h5','h6','a','ul','ol','li','tr','td','th'];
+                $allowed_attrs = ['src','href','id', 'class', 'align'];
+
+                $content = $this->post->validateInput($allowed_attrs, $allowed_tags, $content);
+                $title   = $this->post->validateInput($allowed_attrs, $allowed_tags, $title);
+
+
+                if (strlen($content) < 10) {
+                    $error_post .= "Nội dung không hợp lệ";
+                    $content = "";
+                    $flag = false;
+                }
+                
+                if (strlen($title) < 5) {
+                    $error_post .= "Tiêu đề không hợp lệ </br>";
                     $title = "";
                     $flag = false;
                 }
@@ -83,8 +98,6 @@ class PostController extends BaseController
                     // $html_fragment = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), $doc->saveHTML()));
                     
                     */
-                    $title = htmlentities($title);
-                    $content = strip_tags($content);
 
                     $post = new \Entity\Post($title);
                     $post->setUser_Id($user_id);

@@ -7,12 +7,15 @@ abstract class BaseController
     protected $view;
     /** @var \Lib\ModelManager */
     protected $model;
+    /**@var \Lib\PostManager */
+    protected $post;
 
 
     public function __construct()
     {
         $this->view = new \Lib\ViewManager('src/View');
         $this->model = new \Lib\ModelManager();
+        $this->post = new \Lib\PostManager();
     }
 
     public function redirect($uri)
