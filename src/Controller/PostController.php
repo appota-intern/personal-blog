@@ -66,7 +66,7 @@ class PostController extends BaseController
 
                 $content = $this->post->validateInput($allowed_tags, $allowed_attrs, $content);
                 $title   = $this->post->validateInput($allowed_tags, $allowed_attrs, $title);
-
+                $title = htmlspecialchars($title, ENT_QUOTES);
 
                 if (strlen($content) < 10) {
                     $error_post .= "Nội dung không hợp lệ";
@@ -203,6 +203,7 @@ class PostController extends BaseController
 
             $content_new = $this->post->validateInput($allowed_tags, $allowed_attrs, $content_new);
             $title_new  = $this->post->validateInput($allowed_tags, $allowed_attrs, $title_new);
+            $title_new = htmlspecialchars($title_new, ENT_QUOTES);
 
             if (strlen($content_new) < 10) {
                 $error_post .= "Nội dung không hợp lệ";
