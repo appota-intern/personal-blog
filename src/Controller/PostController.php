@@ -64,8 +64,8 @@ class PostController extends BaseController
                 $allowed_tags = ['p','br','b','i','img','span','h1','h2','h3','h4','h5','h6','a','ul','ol','li','tr','td','th'];
                 $allowed_attrs = ['src','href','id', 'class', 'align'];
 
-                $content = $this->post->validateInput($allowed_attrs, $allowed_tags, $content);
-                $title   = $this->post->validateInput($allowed_attrs, $allowed_tags, $title);
+                $content = $this->post->validateInput($allowed_tags, $allowed_attrs, $content);
+                $title   = $this->post->validateInput($allowed_tags, $allowed_attrs, $title);
 
 
                 if (strlen($content) < 10) {
@@ -172,5 +172,73 @@ class PostController extends BaseController
         $delete = $this->postModel->deletePost($id);
 
         $this->listPost();
+    }
+
+    public function edit($id) 
+    {
+        $flag = true;
+        $error_post = "";
+        $mes = "";
+
+        $post = $this->postModel->getPostByID($id);
+        
+        $title = $post->getTitle();
+        $content = $post->getContent();
+
+        if (isset($_POST['title']) && isset($_POST['content'])){
+
+            if ($_POST['submit'] == "save") {
+                $status_new = "saved";
+
+            } elseif ($_POST['submit'] == "publish") {
+                $status_new = "published";
+
+            }
+
+            $title_new = $_POST['title'];
+            $content_new = $_POST['content'];
+
+            $allowed_tags = ['p','br','b','i','img','span','h1','h2','h3','h4','h5','h6','a','ul','ol','li','tr','td','th'];
+            $allowed_attrs = ['src','href','id', 'class', 'align'];
+
+            $content_new = $this->post->validateInput($allowed_tags, $allowed_attrs, $content_new);
+            $title_new  = $this->post->validateInput($allowed_tags, $allowed_attrs, $title_new);
+
+            if (strlen($content_new) < 10) {
+                $error_post .= "Nội dung không hợp lệ";
+                $content = "";
+                $flag = false;
+            }
+                    
+            if (strlen($title_new) < 5) {
+                $error_post .= "Tiêu đề không hợp lệ </br>";
+                $title = "";
+                $flag = false;
+            }
+
+            if ($flag == true) {
+
+                $edit = $this->postModel->editPost($id, $title_new, $content_new, $status_new);
+
+                $mes = "Dữ liệu đã được sửa thành công";
+            }
+
+            $this->view->load('new-post', [
+                    'title' => 'Create Post',
+                    'title_post' => $title_new,
+                    'content_post' => $content_new,
+                    'mes' => $mes,
+                    'error_post' => $error_post,
+                ]);
+        }
+
+        else{
+            $this->view->load('new-post', [
+                'title_post' => $title,
+                'content_post' => $content,
+                'title' => 'Edit'
+            ]);
+        }
+
     }
 }

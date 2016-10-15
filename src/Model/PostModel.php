@@ -41,16 +41,26 @@ class PostModel extends BaseModel
 
     }
 
-    public function editPost($id)
+    public function editPost($id, $title, $content, $status)
     {
-        //$stmt = $this->conn->prepare("")
+
+        $stmt = $this->conn->prepare("UPDATE posts SET title = ?, content = ?, status = ? WHERE id = ?");
+
+        $stmt->bind_param('sssi', $title, $content, $status, $id);
+        $stmt->execute();
+
+        if ($stmt->affected_rows == 1) {
+            return true;
+        }
+
+        return false;
+
     }
 
     public function getIDMax()
     {
         $sql = "SELECT max(id) AS id_max FROM posts";
         $stmt = $this->conn->prepare($sql);
-        //$stmt->bind_param("i",;
         $stmt->execute();
         $result = $stmt->get_result();
         $stmt->close();

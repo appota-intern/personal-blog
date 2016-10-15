@@ -8,12 +8,13 @@ class PostManager
 {
 	function validateInput ($allowed_tags = [], $allowed_attrs = [], $html_val) {
 		$dom = new DomDocument;
+		$html_val = '<meta http-equiv="content-type" content="text/html; charset=utf-8"/><body>'.$html_val.'</body>';
 		$res = $dom->loadHTML($html_val);
 
 		$xpath = new DOMXPath($dom);
 		foreach ($xpath->query("//body//*") as $e) {
 			if (!in_array($e->nodeName, $allowed_tags)) {
-			$e->parentNode->removeChild($e);
+				$e->parentNode->removeChild($e);
 				continue;
 			}
 
@@ -27,6 +28,7 @@ class PostManager
 			     }
 			}
 		}
+
 
 		$html = '';
 		$elements = $dom->getElementsByTagName('body');

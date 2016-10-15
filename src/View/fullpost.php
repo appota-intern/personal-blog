@@ -33,7 +33,7 @@
 						<p class="id"><?= isset($status_post) ? $status_post : '' ?></p>
 						<p class="id"><?= isset($created_at_post) ? $created_at_post : '' ?></p>
 						<p class="action">
-							<a href="">Edit</a>
+							<a href="edit/<?php echo $id_post; ?>">Edit</a>
 							<a href="delete/<?php echo $id_post; ?>">Delete</a>
 						</p>
 					</div>
