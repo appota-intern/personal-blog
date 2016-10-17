@@ -16,17 +16,17 @@ if ($base_uri_len and substr($uri, 0, $base_uri_len) == $base_uri) {
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $routes) {
 	$routes->addRoute(['GET', 'POST'], '/login', 'Controller\\UserController->login');
-	$routes->addRoute('GET', '/', 'Controller\\HomeController->index');
+	$routes->addRoute('GET', '/public', 'Controller\\HomeController->index');
 	$routes->addRoute('GET', '/hello', 'Controller\\UserController->hello');
 	$routes->addRoute('POST', '/logout', 'Controller\\UserController->logout');
-    $routes->addRoute(['GET', 'POST'], '/admin', 'Controller\\UserController->post');
+    $routes->addRoute(['GET', 'POST'], '/admin/posts', 'Controller\\UserController->post');
 	$routes->addRoute(['GET', 'POST'], '/register', 'Controller\\UserController->register');
-    $routes->addRoute(['GET', 'POST'],'/new-post', 'Controller\\PostController->create');
-    $routes->addRoute(['GET', 'POST'],'/full-post', 'Controller\\PostController->listPost');
-    $routes->addRoute(['GET', 'POST'],'/home', 'Controller\\PostController->showPost');
-    $routes->addRoute('GET', '/post/{id}', 'Controller\\PostController->post');
-    $routes->addRoute('GET', '/delete/{id}', 'Controller\\PostController->delete');
-    $routes->addRoute(['GET', 'POST'], '/edit/{id}', 'Controller\\PostController->edit');
+    $routes->addRoute(['GET', 'POST'],'/', 'Controller\\PostController->showPost');
+    $routes->addRoute(['GET', 'POST'],'/admin/post/new-post', 'Controller\\PostController->create');
+    $routes->addRoute(['GET', 'POST'],'/admin/post/full-post', 'Controller\\PostController->listPost');
+    $routes->addRoute('GET', '/admin/post/{id}', 'Controller\\PostController->post');
+    $routes->addRoute('POST', '/admin/post/delete/{id}', 'Controller\\PostController->delete');
+    $routes->addRoute(['GET', 'POST'], '/admin/post/edit/{id}', 'Controller\\PostController->edit');
     
 });
 

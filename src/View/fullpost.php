@@ -34,7 +34,7 @@
 						<p class="id"><?= isset($created_at_post) ? $created_at_post : '' ?></p>
 						<p class="action">
 							<a href="edit/<?php echo $id_post; ?>">Edit</a>
-							<a href="delete/<?php echo $id_post; ?>">Delete</a>
+							<input type="button" id="delete" onClick="load_ajax(<?= $id_post ?>)" value="Delete" />
 						</p>
 					</div>
 				<?php } ?>
@@ -47,4 +47,24 @@
 			<a href="delete-post" class="btn btn-primary">Delete Post</a>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		// document.getElementById('delete').onclick = function(e){
+		//     if( !confirm('Bạn có chắc chắn muốn xóa không') ) {
+		//         e.preventDefault();
+		//     }
+		// };
+
+	    function load_ajax(id) {
+	    	if( confirm('Bạn có chắc chắn muốn xóa ?') ) {
+	    		console.log('loading');
+		        $.ajax({
+	                url: "delete/" + id,
+	                method: "post"	                
+	            })
+		    }
+            
+        }
+
+	</script>
 <?php $this->load('footer'); ?>
